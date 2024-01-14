@@ -9,11 +9,17 @@ public class produto {
     private int qtd;
     private double preco;
 
-    public produto(int ID, String nome, String tipo, String tamanho, int qtd, double preco) {
+    public produto(int ID, String Nome, String Tipo, String Tamanho, int qtd, double preco) {
         this.ID = ID;
-        this.Nome = nome;
-        this.Tipo = tipo;
-        this.Tamanho = tamanho;
+        this.Nome = Nome;
+        this.Tipo = Tipo;
+        this.Tamanho = Tamanho;
+        this.qtd = qtd;
+        this.preco = preco;
+    }
+    public produto(int ID, String Nome, int qtd, double preco) {
+        this.ID = ID;
+        this.Nome = Nome;
         this.qtd = qtd;
         this.preco = preco;
     }

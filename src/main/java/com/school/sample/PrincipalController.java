@@ -23,6 +23,14 @@ import java.util.ResourceBundle;
 
 public class PrincipalController implements Initializable {
     @FXML
+    private TextField preco_inventario_view;
+    @FXML
+    private TextField qtd_inventario_view;
+    @FXML
+    private TextField nome_inventario_view;
+    @FXML
+    private TextField id_Inventario_view;
+    @FXML
     private AnchorPane Imagem;
     @FXML
     private ComboBox<?> Tamanho;
@@ -76,16 +84,13 @@ public class PrincipalController implements Initializable {
     private Button btnFuncionario;
 
     @FXML
-    private Button btnImportar;
-
-    @FXML
     private Button btnInventario;
 
     @FXML
     private Button btnLimpar;
 
     @FXML
-    private Button btnMenu;
+    private Button btnAcercaDe;
 
     @FXML
     private Button btnReserva;
@@ -101,12 +106,12 @@ public class PrincipalController implements Initializable {
         btnInventario.setStyle("-fx-background-color: transparent; -fx-border-color: #fff;");
     }
 
-    public void btnMenuEntered() {
-        btnMenu.setStyle("-fx-background-color: white; -fx-text-fill: #000;");
+    public void btnAcercaDeEntered() {
+        btnAcercaDe.setStyle("-fx-background-color: white; -fx-text-fill: #000;");
     }
 
-    public void btnMenuExited() {
-        btnMenu.setStyle("-fx-background-color: transparent; -fx-border-color: #fff;");
+    public void btnAcercaDeExited() {
+        btnAcercaDe.setStyle("-fx-background-color: transparent; -fx-border-color: #fff;");
     }
 
 
@@ -140,14 +145,6 @@ public class PrincipalController implements Initializable {
 
     public void btnSairExited() {
         btnSair.setStyle("-fx-background-color: transparent; -fx-border-color: #fff;");
-    }
-
-    public void btnImportarEntered() {
-        btnImportar.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
-    }
-
-    public void btnImportarExited() {
-        btnImportar.setStyle("-fx-background-color: #313338; -fx-background-radius: 4px; -fx-text-fill: #fff;");
     }
 
     public void btnAdicionarEntered() {
@@ -225,11 +222,37 @@ public class PrincipalController implements Initializable {
         TableCell_Qtd.setCellValueFactory(new PropertyValueFactory<produto, Integer>("qtd"));
         TableCell_Preco.setCellValueFactory(new PropertyValueFactory<produto, Double>("preco"));
     }
+    public void InventarioVerInfo(){
+        produto prodData = (produto) TableViewInventario.getSelectionModel().getSelectedItem();
+        int num = TableViewInventario.getSelectionModel().getSelectedIndex();
+        if ((num - 1) < -1) {
+            return;
+        }
+        id_Inventario_view.setText(String.valueOf(prodData.getID()));
+        nome_inventario_view.setText(prodData.getNome());
+        qtd_inventario_view.setText(String.valueOf(prodData.getQtd()));
+        preco_inventario_view.setText(String.valueOf(prodData.getPreco()));
+    }
+    public void btnAdicionar_Action(){
+        if(id_Inventario_view.getText().isEmpty()
+            ||nome_inventario_view.getText().isEmpty()
+                || Tipo.getSelectionModel().getSelectedItem() == null
+                || Tamanho.getSelectionModel().getSelectedItem() == null
+                || qtd_inventario_view.getText().isEmpty()
+                || preco_inventario_view.getText().isEmpty()){
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill all blank fields");
+            alert.showAndWait();
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         TipoLista();
         TamanhoLista();
-        Tabela();
+        Tabela();;
 
     }
 }

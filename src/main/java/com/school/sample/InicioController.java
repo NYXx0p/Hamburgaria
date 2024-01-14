@@ -20,9 +20,6 @@ public class InicioController{
     public void entrar(ActionEvent actionEvent) throws Exception {
         Parent scene = FXMLLoader.load(getClass().getResource("Principal1.fxml"));
         Stage voltar = new Stage();
-        //Definições da Stage
-        voltar.setTitle("");
-        voltar.setResizable(false);
         voltar.initOwner(Settings.getPrimaryStage());
         voltar.initModality(Modality.WINDOW_MODAL);
         voltar.setScene(new Scene(scene));

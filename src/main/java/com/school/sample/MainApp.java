@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class MainApp extends Application {
 
@@ -15,7 +16,7 @@ public class MainApp extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("Inicio.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Vai tomar no Cu");
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         Settings.setPrimaryStage(primaryStage);
         Settings.ListaProduto();
         primaryStage.show();

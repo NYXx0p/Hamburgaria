@@ -21,9 +21,7 @@ public class Settings {
     public static ObservableList<produto> getListaProduto() {
         return listaProduto;
     }
-    public static void setListaAlunos(ObservableList<produto> listaProduto) {
-        Settings.listaProduto = (ObservableList<produto>) listaProduto;
-    }
+
     public static void ListaProduto(){
         listaProduto.add(new produto(1,"Hambúrger Simples","Hambúrguer","Normal",42,14.90));
         listaProduto.add(new produto(2,"Cheeseburguer","Hambúrguer","Normal",18,14.00));

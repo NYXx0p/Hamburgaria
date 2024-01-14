@@ -24,7 +24,7 @@
                        <Font name="System Bold" size="24.0" />
                    </font>
                </Label>
-               <Button fx:id="btnMenu" layoutX="9.0" layoutY="418.0" mnemonicParsing="false" onMouseEntered="#btnMenuEntered" onMouseExited="#btnMenuExited" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 4px;" text="Menu" textFill="WHITE">
+               <Button fx:id="btnAcercaDe" layoutX="9.0" layoutY="418.0" mnemonicParsing="false" onMouseEntered="#btnAcercaDeEntered" onMouseExited="#btnAcercaDeExited" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 4px;" text="AcercaDe" textFill="WHITE">
                    <cursor>
                        <Cursor fx:constant="HAND" />
                    </cursor>
@@ -94,7 +94,7 @@
                         <DropShadow />
                      </effect>
                      <children>
-                        <TableView fx:id="TableViewInventario" layoutX="4.0" layoutY="4.0" prefHeight="252.0" prefWidth="849.0" style="-fx-background-color: transparent; -fx-border-color: #000; -fx-border-radius: 5px; -fx-border-width: 1.5px; -fx-padding: 0px;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="4.0">
+                        <TableView fx:id="TableViewInventario" layoutX="4.0" layoutY="4.0" onMouseClicked="#InventarioVerInfo" prefHeight="252.0" prefWidth="849.0" style="-fx-background-color: transparent; -fx-border-color: #000; -fx-border-radius: 5px; -fx-border-width: 1.5px; -fx-padding: 0px;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="4.0">
                           <columns>
                             <TableColumn fx:id="TableCell_ID" prefWidth="112.0" style="-fx-background-color: #41b099;" text="ID do Produto" />
                             <TableColumn fx:id="TableCell_Nome" prefWidth="163.0" style="-fx-background-color: #41b099;" text="Nome do Produto" />
@@ -119,28 +119,28 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="139.0" layoutY="35.0" prefHeight="25.0" prefWidth="80.0" />
+                        <TextField fx:id="id_Inventario_view" layoutX="139.0" layoutY="35.0" prefHeight="25.0" prefWidth="80.0" />
                         <Label alignment="CENTER" layoutX="7.0" layoutY="64.0" prefHeight="34.0" prefWidth="133.0" text="Nome do Produto:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="139.0" layoutY="69.0" prefHeight="25.0" prefWidth="169.0" />
-                        <Label alignment="CENTER" layoutX="12.0" layoutY="98.0" prefHeight="34.0" prefWidth="133.0" text="Tipo do Produto:">
+                        <TextField fx:id="nome_inventario_view" layoutX="139.0" layoutY="69.0" prefHeight="25.0" prefWidth="169.0" />
+                        <Label alignment="CENTER" layoutX="630.0" layoutY="69.0" prefHeight="34.0" prefWidth="133.0" text="Tipo do Produto:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="Tipo" layoutX="139.0" layoutY="103.0" prefHeight="25.0" prefWidth="186.0" promptText="Escolhe o Tipo do Produto">
+                        <ComboBox fx:id="Tipo" layoutX="763.0" layoutY="73.0" prefHeight="25.0" prefWidth="186.0" promptText="Escolhe o Tipo do Produto">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></ComboBox>
-                        <Label alignment="CENTER" layoutX="355.0" layoutY="98.0" prefHeight="34.0" prefWidth="150.0" text="Tamanho do Produto:">
+                        <Label alignment="CENTER" layoutX="613.0" layoutY="25.0" prefHeight="34.0" prefWidth="150.0" text="Tamanho do Produto:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="Tamanho" layoutX="505.0" layoutY="103.0" prefHeight="25.0" prefWidth="214.0" promptText="Escolhe o Tamanho do Produto">
+                        <ComboBox fx:id="Tamanho" layoutX="763.0" layoutY="30.0" prefHeight="25.0" prefWidth="214.0" promptText="Escolhe o Tamanho do Produto">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></ComboBox>
@@ -149,22 +149,14 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="505.0" layoutY="42.0" prefHeight="25.0" prefWidth="80.0" promptText="0" />
+                        <TextField fx:id="qtd_inventario_view" layoutX="505.0" layoutY="42.0" prefHeight="25.0" prefWidth="80.0" promptText="0" />
                         <Label alignment="CENTER" layoutX="424.0" layoutY="68.0" prefHeight="34.0" prefWidth="107.0" text="Preço:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="505.0" layoutY="73.0" prefHeight="25.0" prefWidth="80.0" promptText="0.0€" />
-                        <AnchorPane fx:id="Imagem" layoutX="692.0" layoutY="19.0" prefHeight="147.0" prefWidth="157.0" style="-fx-background-color: #fff; -fx-background-radius: 4px;" AnchorPane.bottomAnchor="117.0" AnchorPane.rightAnchor="13.0">
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                           <children>
-                              <ImageView fitHeight="147.0" fitWidth="157.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                        <Button fx:id="btnAdicionar" layoutX="32.0" layoutY="174.0" mnemonicParsing="false" onMouseEntered="#btnAdicionarEntered" onMouseExited="#btnAdicionarExited" prefHeight="66.0" prefWidth="121.0" style="-fx-background-color: #313338; -fx-background-radius: 4px;" text="Adicionar" textFill="WHITE" AnchorPane.bottomAnchor="26.0">
+                        <TextField fx:id="preco_inventario_view" layoutX="505.0" layoutY="73.0" prefHeight="25.0" prefWidth="80.0" promptText="0.0€" />
+                        <Button fx:id="btnAdicionar" layoutX="32.0" layoutY="174.0" mnemonicParsing="false" onAction="#btnAdicionar_Action" onMouseEntered="#btnAdicionarEntered" onMouseExited="#btnAdicionarExited" prefHeight="66.0" prefWidth="121.0" style="-fx-background-color: #313338; -fx-background-radius: 4px;" text="Adicionar" textFill="WHITE" AnchorPane.bottomAnchor="26.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -186,13 +178,6 @@
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
                         <Button fx:id="btnEliminar" layoutX="467.0" layoutY="174.0" mnemonicParsing="false" onMouseEntered="#btnEliminarEntered" onMouseExited="#btnEliminarExited" prefHeight="66.0" prefWidth="121.0" style="-fx-background-color: #313338; -fx-background-radius: 4px;" text="Eliminar" textFill="WHITE" AnchorPane.bottomAnchor="26.0">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor></Button>
-                        <Button fx:id="btnImportar" layoutX="884.0" layoutY="176.0" mnemonicParsing="false" onMouseEntered="#btnImportarEntered" onMouseExited="#btnImportarExited" prefHeight="31.0" prefWidth="133.0" style="-fx-background-color: #313338; -fx-background-radius: 4px;" text="Importar" textFill="WHITE" AnchorPane.bottomAnchor="76.0" AnchorPane.rightAnchor="25.0">
                            <font>
                               <Font size="14.0" />
                            </font>
