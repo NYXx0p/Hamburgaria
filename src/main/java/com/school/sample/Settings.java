@@ -1,11 +1,8 @@
 package com.school.sample;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 public class Settings {
     private static Stage primaryStage;
@@ -17,7 +14,7 @@ public class Settings {
     public static void setPrimaryStage(Stage primaryStage) {
         Settings.primaryStage = primaryStage;
     }
-    private static ObservableList<produto> listaProduto = FXCollections.observableArrayList();
+    protected static ObservableList<produto> listaProduto = FXCollections.observableArrayList();
     public static ObservableList<produto> getListaProduto() {
         return listaProduto;
     }

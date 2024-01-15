@@ -6,20 +6,19 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.FileChooser;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static com.school.sample.Settings.getListaProduto;
+import static com.school.sample.Settings.listaProduto;
 
 public class PrincipalController implements Initializable {
     @FXML
@@ -191,17 +190,14 @@ public class PrincipalController implements Initializable {
             Platform.exit();
         }
     }
-
-
-
     public void TipoLista() {
         ArrayList<String> ListaTipo = new ArrayList<>();
         ListaTipo.add("Hambúrguer");
-        ListaTipo.add("Bebeida");
+        ListaTipo.add("Bebida");
         ListaTipo.add("Acompanhamento");
         ListaTipo.add("Sobremesa");
-        ObservableList listaData = FXCollections.observableArrayList(ListaTipo);
-        Tipo.setItems(listaData);
+        ObservableList listaTipo = FXCollections.observableArrayList(ListaTipo);
+        Tipo.setItems(listaTipo);
     }
     public void TamanhoLista(){
         ArrayList<String> ListaTamanho = new ArrayList<>();
@@ -210,8 +206,8 @@ public class PrincipalController implements Initializable {
         ListaTamanho.add("Grande");
         ListaTamanho.add("Mega Grande");
         ListaTamanho.add("Thais Carla");
-        ObservableList listaData = FXCollections.observableArrayList(ListaTamanho);
-        Tamanho.setItems(listaData);
+        ObservableList listaTamanho = FXCollections.observableArrayList(ListaTamanho);
+        Tamanho.setItems(listaTamanho);
     }
     public void Tabela(){
         TableViewInventario.setItems(Settings.getListaProduto());
@@ -224,28 +220,42 @@ public class PrincipalController implements Initializable {
     }
     public void InventarioVerInfo(){
         produto prodData = (produto) TableViewInventario.getSelectionModel().getSelectedItem();
-        int num = TableViewInventario.getSelectionModel().getSelectedIndex();
-        if ((num - 1) < -1) {
-            return;
-        }
         id_Inventario_view.setText(String.valueOf(prodData.getID()));
         nome_inventario_view.setText(prodData.getNome());
         qtd_inventario_view.setText(String.valueOf(prodData.getQtd()));
         preco_inventario_view.setText(String.valueOf(prodData.getPreco()));
     }
-    public void btnAdicionar_Action(){
-        if(id_Inventario_view.getText().isEmpty()
-            ||nome_inventario_view.getText().isEmpty()
+    public void AdicionarAction(ActionEvent actionEvent) {
+        if (nome_inventario_view.getText().isEmpty()
                 || Tipo.getSelectionModel().getSelectedItem() == null
                 || Tamanho.getSelectionModel().getSelectedItem() == null
                 || qtd_inventario_view.getText().isEmpty()
-                || preco_inventario_view.getText().isEmpty()){
+                || preco_inventario_view.getText().isEmpty()) {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Message");
             alert.setHeaderText(null);
-            alert.setContentText("Please fill all blank fields");
+            alert.setContentText("Por Favor complete os Espaços Brancos");
             alert.showAndWait();
+
+        }else{
+            int Id_m = listaProduto.getLast().getID();
+            if(Integer.parseInt(id_Inventario_view.getText())==Id_m){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Esse ID já foi Inserido");
+                alert.showAndWait();
+            }
+            else{
+                int Novo_id = Integer.parseInt(id_Inventario_view.getText());
+                String Novo_nome = nome_inventario_view.getText();
+                String Novo_tipo = String.valueOf(Tipo.getSelectionModel().getSelectedItem());
+                String Novo_tamanho = String.valueOf(Tamanho.getSelectionModel().getSelectedItem());
+                int Novo_qtd = Integer.parseInt(qtd_inventario_view.getText());
+                double Novo_preco = Double.parseDouble(preco_inventario_view.getText());
+                listaProduto.add(new produto(Novo_id,Novo_nome,Novo_tipo,Novo_tamanho,Novo_qtd,Novo_preco));
+            }
         }
     }
     @Override
