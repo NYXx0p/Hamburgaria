@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static com.school.sample.Settings.getListaProduto;
-import static com.school.sample.Settings.listaProduto;
+import static com.school.sample.Settings.*;
 
 public class PrincipalController implements Initializable {
     @FXML
@@ -84,9 +83,6 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private Button btnInventario;
-
-    @FXML
-    private Button btnLimpar;
 
     @FXML
     private Button btnAcercaDe;
@@ -162,14 +158,6 @@ public class PrincipalController implements Initializable {
         btnEditar.setStyle("-fx-background-color: #313338; -fx-background-radius: 4px; -fx-text-fill: #fff;");
     }
 
-    public void btnLimparEntered() {
-        btnLimpar.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
-    }
-
-    public void btnLimparExited() {
-        btnLimpar.setStyle("-fx-background-color: #313338; -fx-background-radius: 4px; -fx-text-fill: #fff;");
-    }
-
     public void btnEliminarEntered() {
         btnEliminar.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
@@ -226,38 +214,44 @@ public class PrincipalController implements Initializable {
         preco_inventario_view.setText(String.valueOf(prodData.getPreco()));
     }
     public void AdicionarAction(ActionEvent actionEvent) {
-        if (nome_inventario_view.getText().isEmpty()
+        if (id_Inventario_view.getText().isEmpty()
+                ||nome_inventario_view.getText().isEmpty()
                 || Tipo.getSelectionModel().getSelectedItem() == null
                 || Tamanho.getSelectionModel().getSelectedItem() == null
                 || qtd_inventario_view.getText().isEmpty()
                 || preco_inventario_view.getText().isEmpty()) {
-
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Message");
+            alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Por Favor complete os Espaços Brancos");
+            alert.setContentText("Por favor, preencha todos os campos");
             alert.showAndWait();
-
-        }else{
-            int Id_m = listaProduto.getLast().getID();
-            if(Integer.parseInt(id_Inventario_view.getText())==Id_m){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Esse ID já foi Inserido");
-                alert.showAndWait();
-            }
-            else{
-                int Novo_id = Integer.parseInt(id_Inventario_view.getText());
-                String Novo_nome = nome_inventario_view.getText();
-                String Novo_tipo = String.valueOf(Tipo.getSelectionModel().getSelectedItem());
-                String Novo_tamanho = String.valueOf(Tamanho.getSelectionModel().getSelectedItem());
-                int Novo_qtd = Integer.parseInt(qtd_inventario_view.getText());
-                double Novo_preco = Double.parseDouble(preco_inventario_view.getText());
-                listaProduto.add(new produto(Novo_id,Novo_nome,Novo_tipo,Novo_tamanho,Novo_qtd,Novo_preco));
-            }
         }
-    }
+
+        int novoId = Integer.parseInt(id_Inventario_view.getText());
+
+        // Verificar se o ID já existe na lista
+        if (listaProduto.stream().anyMatch(p -> p.getID() == novoId)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Esse ID já foi inserido");
+            alert.showAndWait();
+        } else {
+            String novoNome = nome_inventario_view.getText();
+            String novoTipo = String.valueOf(Tipo.getSelectionModel().getSelectedItem());
+            String novoTamanho = String.valueOf(Tamanho.getSelectionModel().getSelectedItem());
+            int novoQtd = Integer.parseInt(qtd_inventario_view.getText());
+            double novoPreco = Double.parseDouble(preco_inventario_view.getText());
+
+            listaProduto.add(new produto(novoId, novoNome, novoTipo, novoTamanho, novoQtd, novoPreco));
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText(null);
+            alert.setContentText("O seu produto foi inserido");
+            alert.showAndWait();
+        }
+        }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         TipoLista();
