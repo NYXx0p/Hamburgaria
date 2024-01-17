@@ -294,7 +294,11 @@ public class PrincipalController implements Initializable {
             alert.setContentText("Por favor, preencha todos os campos");
             alert.showAndWait();
         } else {
-            produto ProdutoEdit = Settings.getProdutoEdit();
+            produto ProdutoEdit = null;
+            int novoId = Integer.parseInt(id_Inventario_view.getText());
+            for (produto p : Settings.getListaProduto()) {
+                if (p.getID() == novoId) {
+            }
             ProdutoEdit.setNome(nome_inventario_view.getText());
             ProdutoEdit.setTipo(Tipo.getSelectionModel().getSelectedItem());
             ProdutoEdit.setTamanho(Tamanho.getSelectionModel().getSelectedItem());
@@ -310,8 +314,8 @@ public class PrincipalController implements Initializable {
             alert2.setTitle("Information");
             alert2.setHeaderText(null);
             Optional<ButtonType> choose = alert.showAndWait();
-            if (choose.isPresent() && choose.get() == botaoSim) {
-                for (produto p : getListaProduto()) {
+            if (choose.get() == botaoSim) {
+                for (produto p : Settings.getListaProduto()) {
                     if (p.getID() == ProdutoEdit.getID()) {
                         int index = getListaProduto().indexOf(p);
                         getListaProduto().set(index, ProdutoEdit);
@@ -319,6 +323,7 @@ public class PrincipalController implements Initializable {
                         alert2.showAndWait();
                         break;
                     }
+                    break;
                 }
             }
             else {
@@ -334,7 +339,5 @@ public class PrincipalController implements Initializable {
             TipoLista();
             TamanhoLista();
             Tabela();
-            ;
-
         }
     }
