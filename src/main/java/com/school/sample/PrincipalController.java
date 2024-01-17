@@ -207,7 +207,6 @@ public class PrincipalController implements Initializable {
     }
 
     public void InventarioVerInfo() {
-        TipoLista();
         produto prodData = (produto) TableViewInventario.getSelectionModel().getSelectedItem();
         id_Inventario_view.setText(String.valueOf(prodData.getID()));
         nome_inventario_view.setText(prodData.getNome());
@@ -251,10 +250,9 @@ public class PrincipalController implements Initializable {
                 double novoPreco = Double.parseDouble(preco_inventario_view.getText());
                 // Pergunta se quer mesmo adicionar numa alert
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmar");
-                alert.setHeaderText("Deseja mesmo adicionar?");
+                alert.setTitle("Adicionar");
                 //Mostra o que ele vai adicionar no alet
-                alert.setHeaderText("ID: " + novoId + "\n" + "Nome: " + novoNome + "\n" + "Tipo: " + novoTipo + "\n" + "Tamanho: " + novoTamanho + "\n" + "Quantidade: " + novoQtd + "\n" + "Preço: " + novoPreco);
+                alert.setHeaderText("Deseja mesmo Adicionar?"+"\n"+"ID: " + novoId + "\n" + "Nome: " + novoNome + "\n" + "Tipo: " + novoTipo + "\n" + "Tamanho: " + novoTamanho + "\n" + "Quantidade: " + novoQtd + "\n" + "Preço: " + novoPreco);
                 // Adiciona botões personalizados em português
                 ButtonType botaoSim = new ButtonType("Sim");
                 ButtonType botaoNao = new ButtonType("Não");
@@ -298,41 +296,87 @@ public class PrincipalController implements Initializable {
             int novoId = Integer.parseInt(id_Inventario_view.getText());
             for (produto p : Settings.getListaProduto()) {
                 if (p.getID() == novoId) {
-            }
-            ProdutoEdit.setNome(nome_inventario_view.getText());
-            ProdutoEdit.setTipo(Tipo.getSelectionModel().getSelectedItem());
-            ProdutoEdit.setTamanho(Tamanho.getSelectionModel().getSelectedItem());
-            ProdutoEdit.setQtd(Integer.parseInt(qtd_inventario_view.getText()));
-            ProdutoEdit.setPreco(Double.parseDouble(preco_inventario_view.getText()));
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmar");
-            alert.setHeaderText("Deseja mesmo Editar?");
-            ButtonType botaoSim = new ButtonType("Sim");
-            ButtonType botaoNao = new ButtonType("Não");
-            alert.getButtonTypes().setAll(botaoSim, botaoNao);
-            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-            alert2.setTitle("Information");
-            alert2.setHeaderText(null);
-            Optional<ButtonType> choose = alert.showAndWait();
-            if (choose.get() == botaoSim) {
-                for (produto p : Settings.getListaProduto()) {
-                    if (p.getID() == ProdutoEdit.getID()) {
-                        int index = getListaProduto().indexOf(p);
-                        getListaProduto().set(index, ProdutoEdit);
-                        alert2.setContentText("Edição bem-sucedida");
-                        alert2.showAndWait();
-                        break;
-                    }
+                    ProdutoEdit = p;
                     break;
                 }
             }
-            else {
-                alert2.setContentText("Edição cancelada");
-                alert2.showAndWait();
+            if (ProdutoEdit != null) {
+                ProdutoEdit.setNome(nome_inventario_view.getText());
+                ProdutoEdit.setTipo(Tipo.getSelectionModel().getSelectedItem());
+                ProdutoEdit.setTamanho(Tamanho.getSelectionModel().getSelectedItem());
+                ProdutoEdit.setQtd(Integer.parseInt(qtd_inventario_view.getText()));
+                ProdutoEdit.setPreco(Double.parseDouble(preco_inventario_view.getText()));
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Editar");
+                alert.setHeaderText("Deseja mesmo Editar?");
+                ButtonType botaoSim = new ButtonType("Sim");
+                ButtonType botaoNao = new ButtonType("Não");
+                alert.getButtonTypes().setAll(botaoSim, botaoNao);
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("Information");
+                alert1.setHeaderText(null);
+                Optional<ButtonType> choose = alert.showAndWait();
+                if (choose.get() == botaoSim) {
+                    setProdutoEdit(ProdutoEdit);
+                    TableViewInventario.refresh();
+                    alert1.setContentText("Edição bem-sucedida");
+                    alert1.showAndWait();
+                } else {
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Information");
+                    alert2.setHeaderText(null);
+                    alert2.setContentText("Cancelado com Sucesso");
+                    alert2.showAndWait();
                 }
             }
         }
+    }
+    public void EliminarAction(ActionEvent actionEvent){
+        if (id_Inventario_view.getText().isEmpty()
+                || nome_inventario_view.getText().isEmpty()
+                || Tipo.getSelectionModel().getSelectedItem() == null
+                || Tamanho.getSelectionModel().getSelectedItem() == null
+                || qtd_inventario_view.getText().isEmpty()
+                || preco_inventario_view.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Por favor selecione algum Produto da tabela");
+            alert.showAndWait();}
+        else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Eliminar");
+            alert.setHeaderText("Deseja mesmo Eliminar?"+"\n"+"ID: " +id_Inventario_view.getText() + "\n" + "Nome: " + nome_inventario_view.getText() + "\n" + "Tipo: " + Tipo.getSelectionModel().getSelectedItem() + "\n" + "Tamanho: " + Tamanho.getSelectionModel().getSelectedItem() + "\n" + "Quantidade: " + qtd_inventario_view.getText() + "\n" + "Preço: " + preco_inventario_view.getText());
+            ButtonType botaoSim = new ButtonType("Sim");
+            ButtonType botaoNao = new ButtonType("Não");
+            alert.getButtonTypes().setAll(botaoSim, botaoNao);
+            Optional<ButtonType> choose = alert.showAndWait();
+            if (choose.get() == botaoSim) {
+                int novoId = Integer.parseInt(id_Inventario_view.getText());
+                for (produto p : listaProduto) {
+                    if (p.getID() == novoId) {
+                        Settings.getListaProduto().remove(p);
+                        Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                        alert1.setTitle("Information");
+                        alert1.setHeaderText(null);
+                        alert1.setContentText("O seu produto foi Eliminado");
+                        alert1.showAndWait();
+                        break;
+                    }
+                }
+            }
+            else{
+                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                alert2.setTitle("Information");
+                alert2.setHeaderText(null);
+                alert2.setContentText("Cancelado com Sucesso");
+                alert2.showAndWait();
 
+            }
+        }
+
+
+    }
 
     @Override
         public void initialize (URL url, ResourceBundle resourceBundle){
