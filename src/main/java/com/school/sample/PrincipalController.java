@@ -40,7 +40,7 @@ public class PrincipalController implements Initializable {
     private TableColumn TableCell_ID;
 
     @FXML
-    private TableColumn  TableCell_Nome;
+    private TableColumn TableCell_Nome;
 
     @FXML
     private TableColumn TableCell_Preco;
@@ -159,6 +159,7 @@ public class PrincipalController implements Initializable {
     public void btnEliminarExited() {
         btnEliminar.setStyle("-fx-background-color: #313338; -fx-background-radius: 4px; -fx-text-fill: #fff;");
     }
+
     public void sair(ActionEvent actionEvent) throws Exception {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Sair");
@@ -172,6 +173,7 @@ public class PrincipalController implements Initializable {
             Platform.exit();
         }
     }
+
     public String TipoLista() {
         ArrayList<String> ListaTipo = new ArrayList<>();
         ListaTipo.add("Hambúrguer");
@@ -182,7 +184,8 @@ public class PrincipalController implements Initializable {
         Tipo.setItems(listaTipo);
         return null;
     }
-    public void TamanhoLista(){
+
+    public void TamanhoLista() {
         ArrayList<String> ListaTamanho = new ArrayList<>();
         ListaTamanho.add("Pequeno");
         ListaTamanho.add("Normal");
@@ -192,7 +195,8 @@ public class PrincipalController implements Initializable {
         ObservableList<String> listaTamanho = FXCollections.observableArrayList(ListaTamanho);
         Tamanho.setItems(listaTamanho);
     }
-    public void Tabela(){
+
+    public void Tabela() {
         TableViewInventario.setItems(Settings.getListaProduto());
         TableCell_ID.setCellValueFactory(new PropertyValueFactory<produto, Integer>("ID"));
         TableCell_Nome.setCellValueFactory(new PropertyValueFactory<produto, String>("Nome"));
@@ -201,7 +205,8 @@ public class PrincipalController implements Initializable {
         TableCell_Qtd.setCellValueFactory(new PropertyValueFactory<produto, Integer>("qtd"));
         TableCell_Preco.setCellValueFactory(new PropertyValueFactory<produto, Double>("preco"));
     }
-    public void InventarioVerInfo(){
+
+    public void InventarioVerInfo() {
         TipoLista();
         produto prodData = (produto) TableViewInventario.getSelectionModel().getSelectedItem();
         id_Inventario_view.setText(String.valueOf(prodData.getID()));
@@ -212,9 +217,12 @@ public class PrincipalController implements Initializable {
         Tamanho.setValue(prodData.getTamanho());
 
     }
+
+    //Esse é o metodo que criei e o nome eu adicionei no action do butão
     public void AdicionarAction(ActionEvent actionEvent) {
+        // Isso é para ver se algum TextFild está vazio e se estiver avisa com um alerta
         if (id_Inventario_view.getText().isEmpty()
-                ||nome_inventario_view.getText().isEmpty()
+                || nome_inventario_view.getText().isEmpty()
                 || Tipo.getSelectionModel().getSelectedItem() == null
                 || Tamanho.getSelectionModel().getSelectedItem() == null
                 || qtd_inventario_view.getText().isEmpty()
@@ -224,9 +232,9 @@ public class PrincipalController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Por favor, preencha todos os campos");
             alert.showAndWait();
-        }
-        else{int novoId = Integer.parseInt(id_Inventario_view.getText());
-
+        } else {
+            // pega o Id da textFild do id
+            int novoId = Integer.parseInt(id_Inventario_view.getText());
             // Verificar se o ID já existe na lista
             if (listaProduto.stream().anyMatch(p -> p.getID() == novoId)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -235,95 +243,98 @@ public class PrincipalController implements Initializable {
                 alert.setContentText("Esse ID já foi inserido");
                 alert.showAndWait();
             } else {
+                //Se não tiver ele pega o que está escrito e selecionado de cada caixa e mete num variavel
                 String novoNome = nome_inventario_view.getText();
                 String novoTipo = String.valueOf(Tipo.getSelectionModel().getSelectedItem());
                 String novoTamanho = String.valueOf(Tamanho.getSelectionModel().getSelectedItem());
                 int novoQtd = Integer.parseInt(qtd_inventario_view.getText());
                 double novoPreco = Double.parseDouble(preco_inventario_view.getText());
+                // Pergunta se quer mesmo adicionar numa alert
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmar");
                 alert.setHeaderText("Deseja mesmo adicionar?");
-                alert.setHeaderText("ID: "+novoId+"\n"+"Nome: "+novoNome+"\n"+"Tipo: "+novoTipo+"\n"+"Tamanho: "+novoTamanho+"\n"+"Quantidade: "+novoQtd+"\n"+"Preço: "+novoPreco);
+                //Mostra o que ele vai adicionar no alet
+                alert.setHeaderText("ID: " + novoId + "\n" + "Nome: " + novoNome + "\n" + "Tipo: " + novoTipo + "\n" + "Tamanho: " + novoTamanho + "\n" + "Quantidade: " + novoQtd + "\n" + "Preço: " + novoPreco);
                 // Adiciona botões personalizados em português
                 ButtonType botaoSim = new ButtonType("Sim");
                 ButtonType botaoNao = new ButtonType("Não");
                 alert.getButtonTypes().setAll(botaoSim, botaoNao);
                 Optional<ButtonType> choose = alert.showAndWait();
                 if (choose.get() == botaoSim) {
+                    //Se ele escolher sim ele adicionar a lista e avisa que foi inserido
                     listaProduto.add(new produto(novoId, novoNome, novoTipo, novoTamanho, novoQtd, novoPreco));
                     Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                     alert1.setTitle("Information");
                     alert1.setHeaderText(null);
                     alert1.setContentText("O seu produto foi inserido");
                     alert1.showAndWait();
-                }
-                else{
+                } else {
+                    //Se for cancelado ele avisa tmb
                     Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
                     alert2.setTitle("Information");
                     alert2.setHeaderText(null);
                     alert2.setContentText("Cancelado com Sucesso");
                     alert2.showAndWait();
                 }
-                }
-                }
-
+            }
         }
+
+    }
+
     public void EditarAction(ActionEvent actionEvent) {
         if (id_Inventario_view.getText().isEmpty()
-                ||nome_inventario_view.getText().isEmpty()
-                ||Tipo.getSelectionModel().getSelectedItem() == null
-                ||Tamanho.getSelectionModel().getSelectedItem() == null
-                ||qtd_inventario_view.getText().isEmpty()
-                ||preco_inventario_view.getText().isEmpty()) {
+                || nome_inventario_view.getText().isEmpty()
+                || Tipo.getSelectionModel().getSelectedItem() == null
+                || Tamanho.getSelectionModel().getSelectedItem() == null
+                || qtd_inventario_view.getText().isEmpty()
+                || preco_inventario_view.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("Por favor, preencha todos os campos");
             alert.showAndWait();
-        }
-        else{
-            //Preencher os campos com os dados do objeto Aluno
-            //que pretendemos editar/ atualizar
-            id_Inventario_view.getText();
-            getProdutoEdit().setNome(nome_inventario_view.getText());
-            getProdutoEdit().setTipo(Tipo.getValue());
-            getProdutoEdit().setTamanho(Tamanho.getValue());
-            getProdutoEdit().setQtd(Integer.parseInt(qtd_inventario_view.getText()));
-            getProdutoEdit().setPreco(Double.parseDouble(preco_inventario_view.getText()));
+        } else {
+            produto ProdutoEdit = Settings.getProdutoEdit();
+            ProdutoEdit.setNome(nome_inventario_view.getText());
+            ProdutoEdit.setTipo(Tipo.getSelectionModel().getSelectedItem());
+            ProdutoEdit.setTamanho(Tamanho.getSelectionModel().getSelectedItem());
+            ProdutoEdit.setQtd(Integer.parseInt(qtd_inventario_view.getText()));
+            ProdutoEdit.setPreco(Double.parseDouble(preco_inventario_view.getText()));
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmar");
             alert.setHeaderText("Deseja mesmo Editar?");
-            // Adiciona botões personalizados em português
             ButtonType botaoSim = new ButtonType("Sim");
             ButtonType botaoNao = new ButtonType("Não");
             alert.getButtonTypes().setAll(botaoSim, botaoNao);
+            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+            alert2.setTitle("Information");
+            alert2.setHeaderText(null);
             Optional<ButtonType> choose = alert.showAndWait();
-            if (choose.get() == botaoSim) {
+            if (choose.isPresent() && choose.get() == botaoSim) {
                 for (produto p : getListaProduto()) {
-                    //Quando descobrir o objeto, faz a substituição
-                    if (p.getID() == getProdutoEdit().getID()) {
-                        // Saca o índice do elemento na Lista
+                    if (p.getID() == ProdutoEdit.getID()) {
                         int index = getListaProduto().indexOf(p);
-                        getListaProduto().set(index, getProdutoEdit());
+                        getListaProduto().set(index, ProdutoEdit);
+                        alert2.setContentText("Edição bem-sucedida");
+                        alert2.showAndWait();
                         break;
                     }
-                else{
-                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                    alert2.setTitle("Information");
-                    alert2.setHeaderText(null);
-                    alert2.setContentText("Cancelado com Sucesso");
-                    alert2.showAndWait();
-                    }
                 }
+            }
+            else {
+                alert2.setContentText("Edição cancelada");
+                alert2.showAndWait();
                 }
+            }
+        }
+
+
+    @Override
+        public void initialize (URL url, ResourceBundle resourceBundle){
+            TipoLista();
+            TamanhoLista();
+            Tabela();
+            ;
 
         }
     }
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        TipoLista();
-        TamanhoLista();
-        Tabela();;
-
-    }
-}
