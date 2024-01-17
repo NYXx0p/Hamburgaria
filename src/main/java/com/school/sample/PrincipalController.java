@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -29,15 +28,10 @@ public class PrincipalController implements Initializable {
     @FXML
     private TextField id_Inventario_view;
     @FXML
-    private AnchorPane Imagem;
-    @FXML
-    private ComboBox<?> Tamanho;
+    private ComboBox<String> Tamanho;
 
     @FXML
-    private ComboBox<?> Tipo;
-
-    @FXML
-    private ImageView ImageView_Inventario;
+    private ComboBox<String> Tipo;
 
     @FXML
     private BorderPane Principal;
@@ -178,14 +172,15 @@ public class PrincipalController implements Initializable {
             Platform.exit();
         }
     }
-    public void TipoLista() {
+    public String TipoLista() {
         ArrayList<String> ListaTipo = new ArrayList<>();
         ListaTipo.add("Hambúrguer");
         ListaTipo.add("Bebida");
         ListaTipo.add("Acompanhamento");
         ListaTipo.add("Sobremesa");
-        ObservableList listaTipo = FXCollections.observableArrayList(ListaTipo);
+        ObservableList<String> listaTipo = FXCollections.observableArrayList(ListaTipo);
         Tipo.setItems(listaTipo);
+        return null;
     }
     public void TamanhoLista(){
         ArrayList<String> ListaTamanho = new ArrayList<>();
@@ -194,7 +189,7 @@ public class PrincipalController implements Initializable {
         ListaTamanho.add("Grande");
         ListaTamanho.add("Mega Grande");
         ListaTamanho.add("Thais Carla");
-        ObservableList listaTamanho = FXCollections.observableArrayList(ListaTamanho);
+        ObservableList<String> listaTamanho = FXCollections.observableArrayList(ListaTamanho);
         Tamanho.setItems(listaTamanho);
     }
     public void Tabela(){
@@ -207,11 +202,15 @@ public class PrincipalController implements Initializable {
         TableCell_Preco.setCellValueFactory(new PropertyValueFactory<produto, Double>("preco"));
     }
     public void InventarioVerInfo(){
+        TipoLista();
         produto prodData = (produto) TableViewInventario.getSelectionModel().getSelectedItem();
         id_Inventario_view.setText(String.valueOf(prodData.getID()));
         nome_inventario_view.setText(prodData.getNome());
         qtd_inventario_view.setText(String.valueOf(prodData.getQtd()));
         preco_inventario_view.setText(String.valueOf(prodData.getPreco()));
+        Tipo.setValue(prodData.getTipo());
+        Tamanho.setValue(prodData.getTamanho());
+
     }
     public void AdicionarAction(ActionEvent actionEvent) {
         if (id_Inventario_view.getText().isEmpty()
@@ -226,32 +225,100 @@ public class PrincipalController implements Initializable {
             alert.setContentText("Por favor, preencha todos os campos");
             alert.showAndWait();
         }
+        else{int novoId = Integer.parseInt(id_Inventario_view.getText());
 
-        int novoId = Integer.parseInt(id_Inventario_view.getText());
+            // Verificar se o ID já existe na lista
+            if (listaProduto.stream().anyMatch(p -> p.getID() == novoId)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Esse ID já foi inserido");
+                alert.showAndWait();
+            } else {
+                String novoNome = nome_inventario_view.getText();
+                String novoTipo = String.valueOf(Tipo.getSelectionModel().getSelectedItem());
+                String novoTamanho = String.valueOf(Tamanho.getSelectionModel().getSelectedItem());
+                int novoQtd = Integer.parseInt(qtd_inventario_view.getText());
+                double novoPreco = Double.parseDouble(preco_inventario_view.getText());
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmar");
+                alert.setHeaderText("Deseja mesmo adicionar?");
+                alert.setHeaderText("ID: "+novoId+"\n"+"Nome: "+novoNome+"\n"+"Tipo: "+novoTipo+"\n"+"Tamanho: "+novoTamanho+"\n"+"Quantidade: "+novoQtd+"\n"+"Preço: "+novoPreco);
+                // Adiciona botões personalizados em português
+                ButtonType botaoSim = new ButtonType("Sim");
+                ButtonType botaoNao = new ButtonType("Não");
+                alert.getButtonTypes().setAll(botaoSim, botaoNao);
+                Optional<ButtonType> choose = alert.showAndWait();
+                if (choose.get() == botaoSim) {
+                    listaProduto.add(new produto(novoId, novoNome, novoTipo, novoTamanho, novoQtd, novoPreco));
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setTitle("Information");
+                    alert1.setHeaderText(null);
+                    alert1.setContentText("O seu produto foi inserido");
+                    alert1.showAndWait();
+                }
+                else{
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Information");
+                    alert2.setHeaderText(null);
+                    alert2.setContentText("Cancelado com Sucesso");
+                    alert2.showAndWait();
+                }
+                }
+                }
 
-        // Verificar se o ID já existe na lista
-        if (listaProduto.stream().anyMatch(p -> p.getID() == novoId)) {
+        }
+    public void EditarAction(ActionEvent actionEvent) {
+        if (id_Inventario_view.getText().isEmpty()
+                ||nome_inventario_view.getText().isEmpty()
+                ||Tipo.getSelectionModel().getSelectedItem() == null
+                ||Tamanho.getSelectionModel().getSelectedItem() == null
+                ||qtd_inventario_view.getText().isEmpty()
+                ||preco_inventario_view.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Esse ID já foi inserido");
-            alert.showAndWait();
-        } else {
-            String novoNome = nome_inventario_view.getText();
-            String novoTipo = String.valueOf(Tipo.getSelectionModel().getSelectedItem());
-            String novoTamanho = String.valueOf(Tamanho.getSelectionModel().getSelectedItem());
-            int novoQtd = Integer.parseInt(qtd_inventario_view.getText());
-            double novoPreco = Double.parseDouble(preco_inventario_view.getText());
-
-            listaProduto.add(new produto(novoId, novoNome, novoTipo, novoTamanho, novoQtd, novoPreco));
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText(null);
-            alert.setContentText("O seu produto foi inserido");
+            alert.setContentText("Por favor, preencha todos os campos");
             alert.showAndWait();
         }
-        }
+        else{
+            //Preencher os campos com os dados do objeto Aluno
+            //que pretendemos editar/ atualizar
+            id_Inventario_view.getText();
+            getProdutoEdit().setNome(nome_inventario_view.getText());
+            getProdutoEdit().setTipo(Tipo.getValue());
+            getProdutoEdit().setTamanho(Tamanho.getValue());
+            getProdutoEdit().setQtd(Integer.parseInt(qtd_inventario_view.getText()));
+            getProdutoEdit().setPreco(Double.parseDouble(preco_inventario_view.getText()));
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar");
+            alert.setHeaderText("Deseja mesmo Editar?");
+            // Adiciona botões personalizados em português
+            ButtonType botaoSim = new ButtonType("Sim");
+            ButtonType botaoNao = new ButtonType("Não");
+            alert.getButtonTypes().setAll(botaoSim, botaoNao);
+            Optional<ButtonType> choose = alert.showAndWait();
+            if (choose.get() == botaoSim) {
+                for (produto p : getListaProduto()) {
+                    //Quando descobrir o objeto, faz a substituição
+                    if (p.getID() == getProdutoEdit().getID()) {
+                        // Saca o índice do elemento na Lista
+                        int index = getListaProduto().indexOf(p);
+                        getListaProduto().set(index, getProdutoEdit());
+                        break;
+                    }
+                else{
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Information");
+                    alert2.setHeaderText(null);
+                    alert2.setContentText("Cancelado com Sucesso");
+                    alert2.showAndWait();
+                    }
+                }
+                }
 
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         TipoLista();

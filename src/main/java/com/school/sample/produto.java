@@ -36,8 +36,7 @@ public class produto {
         return Nome;
     }
 
-    public void setNome(String nome) {
-        Nome = nome;
+    public void setNome(String nome) {this.Nome = nome;
     }
 
     public String getTipo() {
@@ -71,5 +70,6 @@ public class produto {
     public void setPreco(double preco) {
         this.preco = preco;
     }
+
 
 }

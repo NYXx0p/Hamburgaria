@@ -160,7 +160,7 @@
                            <font>
                               <Font size="14.0" />
                            </font></Button>
-                        <Button fx:id="btnEditar" layoutX="179.0" layoutY="174.0" mnemonicParsing="false" onMouseEntered="#btnEditarEntered" onMouseExited="#btnEditarExited" prefHeight="66.0" prefWidth="121.0" style="-fx-background-color: #313338; -fx-background-radius: 4px;" text="Editar" textFill="WHITE" AnchorPane.bottomAnchor="26.0">
+                        <Button fx:id="btnEditar" layoutX="179.0" layoutY="174.0" mnemonicParsing="false" onAction="#EditarAction" onMouseEntered="#btnEditarEntered" onMouseExited="#btnEditarExited" prefHeight="66.0" prefWidth="121.0" style="-fx-background-color: #313338; -fx-background-radius: 4px;" text="Editar" textFill="WHITE" AnchorPane.bottomAnchor="26.0">
                            <font>
                               <Font size="14.0" />
                            </font>

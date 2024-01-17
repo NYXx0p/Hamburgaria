@@ -18,7 +18,13 @@ public class Settings {
     public static ObservableList<produto> getListaProduto() {
         return listaProduto;
     }
-
+    private static produto ProdutoEdit;
+    public static produto getProdutoEdit() {
+        return ProdutoEdit;
+    }
+    public static void setProdutoEdit(produto ProdutoEdit) {
+        Settings.ProdutoEdit = ProdutoEdit;
+    }
     public static void ListaProduto(){
         listaProduto.add(new produto(1,"Hambúrger Simples","Hambúrguer","Normal",42,14.90));
         listaProduto.add(new produto(2,"Cheeseburguer","Hambúrguer","Normal",18,14.00));
