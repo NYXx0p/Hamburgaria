@@ -20,6 +20,7 @@ public class MainApp extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         Settings.setPrimaryStage(primaryStage);
         Settings.ListaProduto();
+        Settings.ListaCiente();
         primaryStage.show();
     }
 }

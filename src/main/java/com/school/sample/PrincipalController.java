@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -87,6 +88,43 @@ public class PrincipalController implements Initializable {
     @FXML
     private Button btnSair;
 
+    @FXML
+    private TableView TableViewCliente;
+
+    @FXML
+    private TableColumn Table_Cell_Endereco_Cliente;
+
+    @FXML
+    private TableColumn Table_Cell_ID_Cliente;
+
+    @FXML
+    private TableColumn Table_Cell_N_Cliente;
+
+    @FXML
+    private TableColumn Table_Cell_Nome_Cliente;
+
+    @FXML
+    private Button btnAdicionarCliente;
+
+    @FXML
+    private Button btnEditarCliente;
+
+    @FXML
+    private Button btnEliminarCliente;
+
+    @FXML
+    private TextField txt_Edereco_Cliente;
+
+    @FXML
+    private TextField txt_Id_Cliente;
+
+    @FXML
+    private TextField txt_N_Cliente;
+
+    @FXML
+    private TextField txt_nome_Cliente;
+
+
     public void btnInventarioEntered() {
         btnInventario.setStyle("-fx-background-color: white; -fx-text-fill: #000;");
     }
@@ -159,7 +197,24 @@ public class PrincipalController implements Initializable {
     public void btnEliminarExited() {
         btnEliminar.setStyle("-fx-background-color: #313338; -fx-background-radius: 4px; -fx-text-fill: #fff;");
     }
-
+    public void btnAdicionarClienteEntered(){
+        btnAdicionarCliente.setStyle("-fx-background-color: #999999; -fx-background-radius: 4px; -fx-text-fill: #000;");
+    }
+    public void btnAdicionarClienteExited(){
+        btnAdicionarCliente.setStyle("-fx-background-color: #333333; -fx-background-radius: 4px; -fx-text-fill: #fff;");
+    }
+    public void btnEditarClienteEntered() {
+        btnEditarCliente.setStyle("-fx-background-color: #999999; -fx-background-radius: 4px; -fx-text-fill: #000;");
+    }
+    public void btnEditarClienteExited() {
+        btnEditarCliente.setStyle("-fx-background-color: #333333; -fx-background-radius: 4px; -fx-text-fill: #fff;");
+    }
+    public void btnEliminarClienteEntered() {
+        btnEliminarCliente.setStyle("-fx-background-color: #999999; -fx-background-radius: 4px; -fx-text-fill: #000;");
+    }
+    public void btnEliminarClienteExited() {
+        btnEliminarCliente.setStyle("-fx-background-color: #333333; -fx-background-radius: 4px; -fx-text-fill: #fff;");
+    }
     public void sair(ActionEvent actionEvent) throws Exception {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Sair");
@@ -196,7 +251,7 @@ public class PrincipalController implements Initializable {
         Tamanho.setItems(listaTamanho);
     }
 
-    public void Tabela() {
+    public void TabelaInventario() {
         TableViewInventario.setItems(Settings.getListaProduto());
         TableCell_ID.setCellValueFactory(new PropertyValueFactory<produto, Integer>("ID"));
         TableCell_Nome.setCellValueFactory(new PropertyValueFactory<produto, String>("Nome"));
@@ -204,6 +259,13 @@ public class PrincipalController implements Initializable {
         TableCell_Tamanho.setCellValueFactory(new PropertyValueFactory<produto, String>("Tamanho"));
         TableCell_Qtd.setCellValueFactory(new PropertyValueFactory<produto, Integer>("qtd"));
         TableCell_Preco.setCellValueFactory(new PropertyValueFactory<produto, Double>("preco"));
+    }
+    public void TabelaCliente(){
+        TableViewCliente.setItems(Settings.getListaCliente());
+        Table_Cell_ID_Cliente.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("Id"));
+        Table_Cell_Nome_Cliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("Nome"));
+        Table_Cell_Endereco_Cliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("Endereco"));
+        Table_Cell_N_Cliente.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("N_Telefone"));
     }
 
     public void InventarioVerInfo() {
@@ -214,7 +276,13 @@ public class PrincipalController implements Initializable {
         preco_inventario_view.setText(String.valueOf(prodData.getPreco()));
         Tipo.setValue(prodData.getTipo());
         Tamanho.setValue(prodData.getTamanho());
-
+    }
+    public void ClienteVerInfo(){
+        Cliente clienteData = (Cliente) TableViewCliente.getSelectionModel().getSelectedItem();
+        txt_Id_Cliente.setText(String.valueOf(clienteData.getId()));
+        txt_nome_Cliente.setText(clienteData.getNome());
+        txt_Edereco_Cliente.setText(clienteData.getEndereco());
+        txt_N_Cliente.setText(String.valueOf(clienteData.getN_Telefone()));
     }
 
     //Esse é o metodo que criei e o nome eu adicionei no action do butão
@@ -278,7 +346,8 @@ public class PrincipalController implements Initializable {
         }
 
     }
-
+    public void AdicionarCienteAction(ActionEvent actionEvent) {
+    }
     public void EditarAction(ActionEvent actionEvent) {
         if (id_Inventario_view.getText().isEmpty()
                 || nome_inventario_view.getText().isEmpty()
@@ -331,6 +400,8 @@ public class PrincipalController implements Initializable {
             }
         }
     }
+    public void EditarClienteAction(ActionEvent actionEvent) {
+    }
     public void EliminarAction(ActionEvent actionEvent){
         if (id_Inventario_view.getText().isEmpty()
                 || nome_inventario_view.getText().isEmpty()
@@ -374,14 +445,18 @@ public class PrincipalController implements Initializable {
 
             }
         }
-
-
+    }
+    public void EliminarClienteAction(ActionEvent actionEvent) {
     }
 
     @Override
         public void initialize (URL url, ResourceBundle resourceBundle){
             TipoLista();
             TamanhoLista();
-            Tabela();
+            TabelaInventario();
+            TabelaCliente();
         }
-    }
+
+
+
+}

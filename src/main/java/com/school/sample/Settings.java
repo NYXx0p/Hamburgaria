@@ -18,6 +18,10 @@ public class Settings {
     public static ObservableList<produto> getListaProduto() {
         return listaProduto;
     }
+    protected static ObservableList<Cliente> listaCliente = FXCollections.observableArrayList();
+    public static ObservableList<Cliente> getListaCliente() {
+        return listaCliente;
+    }
     private static produto ProdutoEdit;
 
     public static produto getProdutoEdit() {
@@ -43,5 +47,18 @@ public class Settings {
         listaProduto.add(new produto(13,"Mousse de Chocolate","Sobremesa","Pequeno",14,4.30));
         listaProduto.add(new produto(14,"Cheesecake","Sobremesa","Pequeno",20,1.59));
         listaProduto.add(new produto(15,"Arroz Doce","Sobremesa","Pequeno",17,4.30));
+    }
+    public static void ListaCiente(){
+        listaCliente.add(new Cliente(1,"João Silva","Rua da Primavera",915432789));
+        listaCliente.add(new Cliente(2,"Maria Santos","Avenida dos Castanheiros",961234567));
+        listaCliente.add(new Cliente(3,"Diogo Pereira","Travessa das Oliveiras",926789012));
+        listaCliente.add(new Cliente(4,"Inês Costa","Praça da Liberdade",912345678));
+        listaCliente.add(new Cliente(5,"Miguel Oliveira","Largo do Sol Poente",967890123));
+        listaCliente.add(new Cliente(6,"Sofia Gonçalves","Rua das Amendoeiras",926543210));
+        listaCliente.add(new Cliente(7,"Pedro Rodrigues","Avenida das Azáleas",961098765));
+        listaCliente.add(new Cliente(8,"Catarina Almeida","Beco dos Pássaros",921234567));
+        listaCliente.add(new Cliente(9,"André Sousa","Alameda das Violetas",966789012));
+        listaCliente.add(new Cliente(10,"Florin Chascear","Praia dos Coqueiros",924567890));
+
     }
 }
