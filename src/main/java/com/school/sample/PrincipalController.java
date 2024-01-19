@@ -3,11 +3,14 @@ package com.school.sample;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.net.URI;
@@ -19,7 +22,16 @@ import java.util.ResourceBundle;
 
 import static com.school.sample.Settings.*;
 
+
 public class PrincipalController implements Initializable {
+    @FXML
+    private Label nome_inicio;
+    @FXML
+    private TextField Pesquisar_Funcionario;
+    @FXML
+    private TextField Pesquisa_Cliente;
+    @FXML
+    private TextField Pesquisa_Produto;
     @FXML
     private Hyperlink HyperLink_Escola;
     @FXML
@@ -256,6 +268,82 @@ public class PrincipalController implements Initializable {
     public void btnEliminar_Funcionario_Exited(){
         btnEliminar_Funcionario.setStyle("-fx-background-color: #919de6; -fx-background-radius: 5px; -fx-text-fill: #fff;");
     }
+    public void Pesquisa_Produto_Key(KeyEvent keyEvent) {
+        FilteredList<produto> filter = new FilteredList<>(listaProduto, e -> true);
+
+        Pesquisa_Produto.textProperty().addListener((Observable, oldValue, newValue) ->{
+
+            filter.setPredicate(predicateproduto ->{
+                if(newValue == null && newValue.isEmpty()){
+                    return true;
+                }
+                String ProcurarP = newValue.toLowerCase();
+                if (String.valueOf(predicateproduto.getID()).contains(ProcurarP)){
+                    return true;
+                }else if (predicateproduto.getNome().toLowerCase().contains(ProcurarP)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+        SortedList<produto> sortList =  new SortedList<>(filter);
+        sortList.comparatorProperty().bind(TableViewInventario.comparatorProperty());
+        TableViewInventario.setItems(sortList);
+    }
+    public void Pesquisa_Cliente_Key(KeyEvent keyEvent) {
+        FilteredList<Cliente> filter = new FilteredList<>(listaCliente, e -> true);
+
+        Pesquisa_Cliente.textProperty().addListener((Observable, oldValue, newValue) ->{
+
+            filter.setPredicate(predicatecliente ->{
+                if(newValue == null && newValue.isEmpty()){
+                    return true;
+                }
+                String ProcurarC = newValue.toLowerCase();
+                if (String.valueOf(predicatecliente.getId()).contains(ProcurarC)){
+                    return true;
+                }else if (predicatecliente.getNome().toLowerCase().contains(ProcurarC)) {
+                    return true;
+                }else if(predicatecliente.getEndereco().toLowerCase().contains(ProcurarC)){
+                    return true;
+                }else if(String.valueOf(predicatecliente.getN_Telefone()).contains(ProcurarC)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+        SortedList<Cliente> sortList =  new SortedList<>(filter);
+        sortList.comparatorProperty().bind(TableViewCliente.comparatorProperty());
+        TableViewCliente.setItems(sortList);
+    }
+    public void Pesquisar_Funcionario_Key(KeyEvent keyEvent) {
+        FilteredList<Funcionario> filter = new FilteredList<>(listaFuncionario, e -> true);
+
+        Pesquisar_Funcionario.textProperty().addListener((Observable, oldValue, newValue) ->{
+
+            filter.setPredicate(predicatefuncionario ->{
+                if(newValue == null && newValue.isEmpty()){
+                    return true;
+                }
+                String ProcurarF = newValue.toLowerCase();
+                if (String.valueOf(predicatefuncionario.getId()).contains(ProcurarF)){
+                    return true;
+                }else if (predicatefuncionario.getNome().toLowerCase().contains(ProcurarF)) {
+                    return true;
+                }else if(predicatefuncionario.getEndereco().toLowerCase().contains(ProcurarF)){
+                    return true;
+                }else if(predicatefuncionario.getPosicao().contains(ProcurarF)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+        SortedList<Funcionario> sortList =  new SortedList<>(filter);
+        sortList.comparatorProperty().bind(TableView_Funcionar.comparatorProperty());
+        TableView_Funcionar.setItems(sortList);
+
+    }
+
     public void sair() throws Exception {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Sair");
@@ -863,6 +951,7 @@ public class PrincipalController implements Initializable {
             TabelaCliente();;
             TabelaFuncionar();
         }
+
 
 
 }

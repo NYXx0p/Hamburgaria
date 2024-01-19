@@ -3,6 +3,7 @@ package com.school.sample;
 public class Pessoa {
     private int Id;
     private String nome;
+    private String nome1;
     private String Endereco;
     public Pessoa(int Id, String nome, String endereco) {
         this.Id = Id;
@@ -31,7 +32,7 @@ public class Pessoa {
     }
 
     public void setEndereco(String endereco) {
-        Endereco = endereco;
+        this.Endereco = endereco;
     }
 
 
