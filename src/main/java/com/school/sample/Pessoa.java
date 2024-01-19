@@ -15,7 +15,7 @@ public class Pessoa {
     }
 
     public void setId(int Id) {
-        Id = Id;
+        this.Id = Id;
     }
 
     public String getNome() {

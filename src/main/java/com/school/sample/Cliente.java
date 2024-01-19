@@ -12,7 +12,7 @@ public class Cliente extends Pessoa {
     }
 
     public void setN_Telefone(int N_Telefone) {
-        N_Telefone = N_Telefone;
+        this.N_Telefone = N_Telefone;
     }
 
 }
