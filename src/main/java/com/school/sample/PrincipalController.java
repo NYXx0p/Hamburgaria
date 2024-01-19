@@ -102,9 +102,6 @@ public class PrincipalController implements Initializable {
     private Button btnAcercaDe;
 
     @FXML
-    private Button btnReserva;
-
-    @FXML
     private Button btnSair;
 
     @FXML
@@ -170,15 +167,6 @@ public class PrincipalController implements Initializable {
 
     public void btnAcercaDeExited() {
         btnAcercaDe.setStyle("-fx-background-color: transparent; -fx-border-color: #fff;");
-    }
-
-
-    public void btnReservaEntered() {
-        btnReserva.setStyle("-fx-background-color: white; -fx-text-fill: #000;");
-    }
-
-    public void btnReservaExited() {
-        btnReserva.setStyle("-fx-background-color: transparent; -fx-border-color: #fff;");
     }
 
     public void btnClienteEntered() {
