@@ -1,6 +1,6 @@
 package com.school.sample;
 
-public class Cliente extends Pessoa{
+public class Cliente extends Pessoa {
     private int N_Telefone;
 
     public Cliente (int Id,String nome,String Edereco, int N_Telefone){
@@ -11,8 +11,8 @@ public class Cliente extends Pessoa{
         return N_Telefone;
     }
 
-    public void setN_Telefone(int n_Telefone) {
-        N_Telefone = n_Telefone;
+    public void setN_Telefone(int N_Telefone) {
+        N_Telefone = N_Telefone;
     }
 
 }

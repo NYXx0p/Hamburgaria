@@ -4,17 +4,18 @@ public class Pessoa {
     private int Id;
     private String nome;
     private String Endereco;
-    public Pessoa(int id, String nome, String endereco) {
-        Id = id;
+    public Pessoa(int Id, String nome, String endereco) {
+        this.Id = Id;
         this.nome = nome;
         Endereco = endereco;
     }
+
     public int getId() {
         return Id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(int Id) {
+        Id = Id;
     }
 
     public String getNome() {

@@ -8,10 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -20,6 +18,26 @@ import java.util.ResourceBundle;
 import static com.school.sample.Settings.*;
 
 public class PrincipalController implements Initializable {
+    @FXML
+    private AnchorPane Tela_Funcionario;
+    @FXML
+    private TableColumn <Funcionario, String> TableCell_Posicao_Funcionario;
+    @FXML
+    private TableColumn <Funcionario, String> TableCell_Endereco_Funcionario;
+    @FXML
+    private TableColumn <Funcionario, String> TableCell_Nome_Funcionario;
+    @FXML
+    private TableColumn <Funcionario, Integer> TableCell_Id_Funcionario;
+    @FXML
+    private TableView <Funcionario> TableView_Funcionar;
+    @FXML
+    private ComboBox<String> Combo_Posicao_Funcionario;
+    @FXML
+    private AnchorPane Tela_Cliente;
+
+    @FXML
+    private AnchorPane Tela_Inventario;
+
     @FXML
     private TextField preco_inventario_view;
     @FXML
@@ -35,31 +53,24 @@ public class PrincipalController implements Initializable {
     private ComboBox<String> Tipo;
 
     @FXML
-    private BorderPane Principal;
+    private TableColumn <produto, Integer> TableCell_ID;
 
     @FXML
-    private TableColumn TableCell_ID;
+    private TableColumn <produto, String> TableCell_Nome;
 
     @FXML
-    private TableColumn TableCell_Nome;
+    private TableColumn <produto, Double> TableCell_Preco;
+    @FXML
+    private TableColumn <produto, Integer> TableCell_Qtd;
 
     @FXML
-    private TableColumn TableCell_Preco;
+    private TableColumn <produto, String>  TableCell_Tamanho;
 
     @FXML
-    private TableColumn TableCell_Qtd;
+    private TableColumn <produto, String>  TableCell_Tipo;
 
     @FXML
-    private TableColumn TableCell_Tamanho;
-
-    @FXML
-    private TableColumn TableCell_Tipo;
-
-    @FXML
-    private TableView TableViewInventario;
-
-    @FXML
-    private AnchorPane Tela_Inventario;
+    private TableView <produto> TableViewInventario;
 
     @FXML
     private Button btnAdicionar;
@@ -89,19 +100,19 @@ public class PrincipalController implements Initializable {
     private Button btnSair;
 
     @FXML
-    private TableView TableViewCliente;
+    private TableView <Cliente> TableViewCliente;
 
     @FXML
-    private TableColumn Table_Cell_Endereco_Cliente;
+    private TableColumn <Cliente,String> Table_Cell_Endereco_Cliente;
 
     @FXML
-    private TableColumn Table_Cell_ID_Cliente;
+    private TableColumn <Cliente, Integer> Table_Cell_ID_Cliente;
 
     @FXML
-    private TableColumn Table_Cell_N_Cliente;
+    private TableColumn <Cliente,Integer> Table_Cell_N_Cliente;
 
     @FXML
-    private TableColumn Table_Cell_Nome_Cliente;
+    private TableColumn <Cliente,String> Table_Cell_Nome_Cliente;
 
     @FXML
     private Button btnAdicionarCliente;
@@ -123,6 +134,18 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private TextField txt_nome_Cliente;
+    @FXML
+    private Button btnEliminar_Funcionario;
+    @FXML
+    private Button btn_Editar_Funcionario;
+    @FXML
+    private Button btn_Adicionar_Funcionario;
+    @FXML
+    private TextField txt_Endereco_Funcionario;
+    @FXML
+    private TextField txt_Id_Funcionario;
+    @FXML
+    private TextField txt_Nome_Funcionario;
 
 
     public void btnInventarioEntered() {
@@ -215,7 +238,29 @@ public class PrincipalController implements Initializable {
     public void btnEliminarClienteExited() {
         btnEliminarCliente.setStyle("-fx-background-color: #333333; -fx-background-radius: 4px; -fx-text-fill: #fff;");
     }
-    public void sair(ActionEvent actionEvent) throws Exception {
+    public void btn_Adicionar_Funcionario_Entered(){
+        btn_Adicionar_Funcionario.setStyle("-fx-background-color: #9794ac; -fx-background-radius: 5px; -fx-text-fill: #000;");
+    }
+    public void btn_Adicionar_Funcionario_Exited(){
+        btn_Adicionar_Funcionario.setStyle("-fx-background-color: #919de6; -fx-background-radius: 5px; -fx-text-fill: #fff;");
+
+    }
+    public void btn_Editar_Funcionario_Entered(){
+        btn_Editar_Funcionario.setStyle("-fx-background-color: #9794ac; -fx-background-radius: 5px; -fx-text-fill: #000;");
+
+    }
+    public void btn_Editar_Funcionario_Exited(){
+        btn_Editar_Funcionario.setStyle("-fx-background-color: #919de6; -fx-background-radius: 5px; -fx-text-fill: #fff;");
+
+    }
+    public void btnEliminar_Funcionario_Entered(){
+        btnEliminar_Funcionario.setStyle("-fx-background-color: #9794ac; -fx-background-radius: 5px; -fx-text-fill: #000;");
+
+    }
+    public void btnEliminar_Funcionario_Exited(){
+        btnEliminar_Funcionario.setStyle("-fx-background-color: #919de6; -fx-background-radius: 5px; -fx-text-fill: #fff;");
+    }
+    public void sair() throws Exception {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Sair");
         alert.setHeaderText("Deseja mesmo Sair?");
@@ -228,8 +273,22 @@ public class PrincipalController implements Initializable {
             Platform.exit();
         }
     }
-
-    public String TipoLista() {
+    public void btnCliente_On_Action() {
+        Tela_Cliente.setVisible(true);
+        Tela_Inventario.setVisible(false);
+        Tela_Funcionario.setVisible(false);
+    }
+    public void btnInvertario_On_Action() {
+        Tela_Cliente.setVisible(false);
+        Tela_Inventario.setVisible(true);
+        Tela_Funcionario.setVisible(false);
+    }
+    public void Funcionario_On_Action() {
+        Tela_Cliente.setVisible(false);
+        Tela_Inventario.setVisible(false);
+        Tela_Funcionario.setVisible(true);
+    }
+    public void TipoLista() {
         ArrayList<String> ListaTipo = new ArrayList<>();
         ListaTipo.add("Hambúrguer");
         ListaTipo.add("Bebida");
@@ -237,7 +296,6 @@ public class PrincipalController implements Initializable {
         ListaTipo.add("Sobremesa");
         ObservableList<String> listaTipo = FXCollections.observableArrayList(ListaTipo);
         Tipo.setItems(listaTipo);
-        return null;
     }
 
     public void TamanhoLista() {
@@ -250,7 +308,28 @@ public class PrincipalController implements Initializable {
         ObservableList<String> listaTamanho = FXCollections.observableArrayList(ListaTamanho);
         Tamanho.setItems(listaTamanho);
     }
-
+    public void PosicaoLista(){
+        ArrayList<String> ListaPosicao = new ArrayList<>();
+        ListaPosicao.add("Gerente da Hambúrgario");
+        ListaPosicao.add("Supervisor de Turno");
+        ListaPosicao.add("Atendente do Balcão");
+        ListaPosicao.add("Atendente do drive-thru");
+        ListaPosicao.add("Cozinheiro");
+        ListaPosicao.add("Auxiliar do Cozinheiro");
+        ListaPosicao.add("Garçom");
+        ListaPosicao.add("Montador de Hambúrguer");
+        ListaPosicao.add("Grelhador");
+        ListaPosicao.add("Limpeza");
+        ObservableList<String> listaPosicao = FXCollections.observableArrayList(ListaPosicao);
+        Combo_Posicao_Funcionario.setItems(listaPosicao);
+    }
+    public void TabelaFuncionar(){
+        TableView_Funcionar.setItems(Settings.getListaFuncionaro());
+        TableCell_Id_Funcionario.setCellValueFactory(new PropertyValueFactory<Funcionario, Integer>("Id"));
+        TableCell_Nome_Funcionario.setCellValueFactory(new PropertyValueFactory<Funcionario, String>("nome"));
+        TableCell_Endereco_Funcionario.setCellValueFactory(new PropertyValueFactory<Funcionario, String>("Endereco"));
+        TableCell_Posicao_Funcionario.setCellValueFactory(new PropertyValueFactory<Funcionario, String>("Posicao"));
+    }
     public void TabelaInventario() {
         TableViewInventario.setItems(Settings.getListaProduto());
         TableCell_ID.setCellValueFactory(new PropertyValueFactory<produto, Integer>("ID"));
@@ -284,9 +363,16 @@ public class PrincipalController implements Initializable {
         txt_Edereco_Cliente.setText(clienteData.getEndereco());
         txt_N_Cliente.setText(String.valueOf(clienteData.getN_Telefone()));
     }
+    public void FuncionarVerInfo(){
+        Funcionario funcionarioData = (Funcionario) TableView_Funcionar.getSelectionModel().getSelectedItem();
+        txt_Id_Funcionario.setText(String.valueOf(funcionarioData.getId()));
+        txt_Nome_Funcionario.setText(funcionarioData.getNome());
+        txt_Endereco_Funcionario.setText(funcionarioData.getEndereco());
+        Combo_Posicao_Funcionario.setValue(funcionarioData.getPosicao());
+    }
 
     //Esse é o metodo que criei e o nome eu adicionei no action do butão
-    public void AdicionarAction(ActionEvent actionEvent) {
+    public void AdicionarAction() {
         // Isso é para ver se algum TextFild está vazio e se estiver avisa com um alerta
         if (id_Inventario_view.getText().isEmpty()
                 || nome_inventario_view.getText().isEmpty()
@@ -346,9 +432,117 @@ public class PrincipalController implements Initializable {
         }
 
     }
-    public void AdicionarCienteAction(ActionEvent actionEvent) {
+    public void AdicionarCienteAction() {
+        if (txt_Id_Cliente.getText().isEmpty()
+                || txt_nome_Cliente.getText().isEmpty()
+                || txt_Edereco_Cliente.getText().isEmpty()
+                || txt_N_Cliente.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Por favor, preencha todos os campos");
+            alert.showAndWait();
+        } else {
+            // pega o Id da textFild do id
+            int novoId = Integer.parseInt(txt_Id_Cliente.getText());
+            // Verificar se o ID já existe na lista
+            if (listaCliente.stream().anyMatch(p -> p.getId() == novoId)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Esse ID já foi inserido");
+                alert.showAndWait();
+            } else {
+                //Se não tiver ele pega o que está escrito e selecionado de cada caixa e mete num variavel
+                String novoNome = txt_nome_Cliente.getText();
+                String novoEndereco = txt_Edereco_Cliente.getText();
+                int novoNum = Integer.parseInt(txt_N_Cliente.getText());
+                // Pergunta se quer mesmo adicionar numa alert
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Adicionar");
+                //Mostra o que ele vai adicionar no alet
+                alert.setHeaderText("Deseja mesmo Adicionar?"+"\n"+"ID: " + novoId + "\n" + "Nome: " + novoNome + "\n" + "Endereço: " + novoEndereco + "\n" + "Número de Telefone: " + novoNum );
+                // Adiciona botões personalizados em português
+                ButtonType botaoSim = new ButtonType("Sim");
+                ButtonType botaoNao = new ButtonType("Não");
+                alert.getButtonTypes().setAll(botaoSim, botaoNao);
+                Optional<ButtonType> choose = alert.showAndWait();
+                if (choose.get() == botaoSim) {
+                    //Se ele escolher sim ele adicionar a lista e avisa que foi inserido
+                    listaCliente.add(new Cliente(novoId, novoNome, novoEndereco, novoNum));
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setTitle("Information");
+                    alert1.setHeaderText(null);
+                    alert1.setContentText("O Cliente foi inserido");
+                    alert1.showAndWait();
+                } else {
+                    //Se for cancelado ele avisa tmb
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Information");
+                    alert2.setHeaderText(null);
+                    alert2.setContentText("Cancelado com Sucesso");
+                    alert2.showAndWait();
+                }
+            }
+        }
     }
-    public void EditarAction(ActionEvent actionEvent) {
+    public void Adicionar_Funcionario_On_Action(){
+        if (txt_Id_Funcionario.getText().isEmpty()
+            || txt_Nome_Funcionario.getText().isEmpty()
+            || txt_Endereco_Funcionario.getText().isEmpty()
+            || Combo_Posicao_Funcionario.getSelectionModel().getSelectedItem() == null){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Por favor, preencha todos os campos");
+        alert.showAndWait();
+    } else {
+        // pega o Id da textFild do id
+        int novoId = Integer.parseInt(txt_Id_Funcionario.getText());
+        // Verificar se o ID já existe na lista
+        if (listaFuncionario.stream().anyMatch(f -> f.getId() == novoId)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Esse ID já foi inserido");
+            alert.showAndWait();
+        } else {
+            //Se não tiver ele pega o que está escrito e selecionado de cada caixa e mete num variavel
+            String novoNome = txt_Nome_Funcionario.getText();
+            String novoEndereco = txt_Endereco_Funcionario.getText();
+            String novoPosicao = String.valueOf(Combo_Posicao_Funcionario.getSelectionModel().getSelectedItem());
+            // Pergunta se quer mesmo adicionar numa alert
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Adicionar");
+            //Mostra o que ele vai adicionar no alet
+            alert.setHeaderText("Deseja mesmo Adicionar?"+"\n"+"ID: " + novoId + "\n" + "Nome: " + novoNome + "\n" + "Endereço: " + novoEndereco + "\n" + "Posição: " + novoPosicao );
+            // Adiciona botões personalizados em português
+            ButtonType botaoSim = new ButtonType("Sim");
+            ButtonType botaoNao = new ButtonType("Não");
+            alert.getButtonTypes().setAll(botaoSim, botaoNao);
+            Optional<ButtonType> choose = alert.showAndWait();
+            if (choose.get() == botaoSim) {
+                //Se ele escolher sim ele adicionar a lista e avisa que foi inserido
+                listaFuncionario.add(new Funcionario(novoId, novoNome, novoEndereco, novoPosicao));
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("Information");
+                alert1.setHeaderText(null);
+                alert1.setContentText("O Funcionario foi inserido");
+                alert1.showAndWait();
+            } else {
+                //Se for cancelado ele avisa tmb
+                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                alert2.setTitle("Information");
+                alert2.setHeaderText(null);
+                alert2.setContentText("Cancelado com Sucesso");
+                alert2.showAndWait();
+            }
+        }
+    }
+
+
+    }
+    public void EditarAction() {
         if (id_Inventario_view.getText().isEmpty()
                 || nome_inventario_view.getText().isEmpty()
                 || Tipo.getSelectionModel().getSelectedItem() == null
@@ -398,11 +592,123 @@ public class PrincipalController implements Initializable {
                     alert2.showAndWait();
                 }
             }
+            else{
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Esse ID não foi encontrado");
+                alert.showAndWait();}
         }
     }
-    public void EditarClienteAction(ActionEvent actionEvent) {
+    public void EditarClienteAction() {
+        if (txt_Id_Cliente.getText().isEmpty()
+                || txt_nome_Cliente.getText().isEmpty()
+                || txt_Edereco_Cliente.getText().isEmpty()
+                || txt_N_Cliente.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Por favor, preencha todos os campos");
+            alert.showAndWait();
+        } else {
+            Cliente ClienteEdit = null;
+            int novoId = Integer.parseInt(txt_Id_Cliente.getText());
+            for (Cliente c : Settings.getListaCliente()) {
+                if (c.getId() == novoId) {
+                    ClienteEdit = c;
+                    break;
+                }
+            }
+            if (ClienteEdit != null) {
+                ClienteEdit.setNome(txt_nome_Cliente.getText());
+                ClienteEdit.setEndereco(txt_Edereco_Cliente.getText());
+                ClienteEdit.setN_Telefone(Integer.parseInt(txt_N_Cliente.getText()));
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Editar");
+                alert.setHeaderText("Deseja mesmo Editar?");
+                ButtonType botaoSim = new ButtonType("Sim");
+                ButtonType botaoNao = new ButtonType("Não");
+                alert.getButtonTypes().setAll(botaoSim, botaoNao);
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("Information");
+                alert1.setHeaderText(null);
+                Optional<ButtonType> choose = alert.showAndWait();
+                if (choose.get() == botaoSim) {
+                    setClienteEdit(ClienteEdit);
+                    TableViewCliente.refresh();
+                    alert1.setContentText("Edição bem-sucedida");
+                    alert1.showAndWait();
+                } else {
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Information");
+                    alert2.setHeaderText(null);
+                    alert2.setContentText("Cancelado com Sucesso");
+                    alert2.showAndWait();
+                }
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Esse ID não foi encontrado");
+                alert.showAndWait();}
+        }
     }
-    public void EliminarAction(ActionEvent actionEvent){
+    public void Editar_Funcionario_On_Action(){
+        if (txt_Id_Funcionario.getText().isEmpty()
+                || txt_Nome_Funcionario.getText().isEmpty()
+                || txt_Endereco_Funcionario.getText().isEmpty()
+                || Combo_Posicao_Funcionario.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Por favor, preencha todos os campos");
+            alert.showAndWait();
+        } else {
+            Funcionario FuncionarioEdit = null;
+            int novoId = Integer.parseInt(txt_Id_Funcionario.getText());
+            for (Funcionario f : Settings.getListaFuncionaro()) {
+                if (f.getId() == novoId) {
+                    FuncionarioEdit = f;
+                    break;
+                }
+            }
+            if (FuncionarioEdit != null) {
+                FuncionarioEdit.setNome(txt_Nome_Funcionario.getText());
+                FuncionarioEdit.setEndereco(txt_Endereco_Funcionario.getText());
+                FuncionarioEdit.setPosicao(Combo_Posicao_Funcionario.getSelectionModel().getSelectedItem());
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Editar");
+                alert.setHeaderText("Deseja mesmo Editar?");
+                ButtonType botaoSim = new ButtonType("Sim");
+                ButtonType botaoNao = new ButtonType("Não");
+                alert.getButtonTypes().setAll(botaoSim, botaoNao);
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("Information");
+                alert1.setHeaderText(null);
+                Optional<ButtonType> choose = alert.showAndWait();
+                if (choose.get() == botaoSim) {
+                    setFuncionarioEdit(FuncionarioEdit);
+                    TableView_Funcionar.refresh();
+                    alert1.setContentText("Edição bem-sucedida");
+                    alert1.showAndWait();
+                } else {
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Information");
+                    alert2.setHeaderText(null);
+                    alert2.setContentText("Cancelado com Sucesso");
+                    alert2.showAndWait();
+                }
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Esse ID não foi encontrado");
+                alert.showAndWait();}
+        }
+    }
+    public void EliminarAction(){
         if (id_Inventario_view.getText().isEmpty()
                 || nome_inventario_view.getText().isEmpty()
                 || Tipo.getSelectionModel().getSelectedItem() == null
@@ -446,17 +752,98 @@ public class PrincipalController implements Initializable {
             }
         }
     }
-    public void EliminarClienteAction(ActionEvent actionEvent) {
-    }
+    public void EliminarClienteAction() {
+        if (txt_Id_Cliente.getText().isEmpty()
+                || txt_nome_Cliente.getText().isEmpty()
+                || txt_Edereco_Cliente.getText().isEmpty()
+                || txt_N_Cliente.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Por favor, preencha todos os campos");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Eliminar");
+            alert.setHeaderText("Deseja mesmo Eliminar?"+"\n"+"ID: " +txt_Id_Cliente.getText() + "\n" + "Nome: " + txt_nome_Cliente.getText() + "\n" + "Endereço: " + txt_Edereco_Cliente.getText() + "\n" + "Número de Telefo: " + txt_N_Cliente.getText());
+            ButtonType botaoSim = new ButtonType("Sim");
+            ButtonType botaoNao = new ButtonType("Não");
+            alert.getButtonTypes().setAll(botaoSim, botaoNao);
+            Optional<ButtonType> choose = alert.showAndWait();
+            if (choose.get() == botaoSim) {
+                int novoId = Integer.parseInt(txt_Id_Cliente.getText());
+                for (Cliente c : listaCliente) {
+                    if (c.getId() == novoId) {
+                        Settings.getListaCliente().remove(c);
+                        Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                        alert1.setTitle("Information");
+                        alert1.setHeaderText(null);
+                        alert1.setContentText("O Cliente foi Eliminado");
+                        alert1.showAndWait();
+                        break;
+                    }
+                }
+            }
+            else{
+                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                alert2.setTitle("Information");
+                alert2.setHeaderText(null);
+                alert2.setContentText("Cancelado com Sucesso");
+                alert2.showAndWait();
 
+            }
+        }
+    }
+    public void Eliminar_Funcionario_On_Action(){
+        if (txt_Id_Funcionario.getText().isEmpty()
+                || txt_Nome_Funcionario.getText().isEmpty()
+                || txt_Endereco_Funcionario.getText().isEmpty()
+                || Combo_Posicao_Funcionario.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Por favor selecione algum Funcionario da tabela");
+            alert.showAndWait();}
+        else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Eliminar");
+            alert.setHeaderText("Deseja mesmo Eliminar?"+"\n"+"ID: " +txt_Id_Funcionario.getText() + "\n" + "Nome: " + txt_Nome_Funcionario.getText() + "\n" + "Endereço: " + txt_Endereco_Funcionario.getText() + "\n" + "Posição: " + Combo_Posicao_Funcionario.getSelectionModel().getSelectedItem());
+            ButtonType botaoSim = new ButtonType("Sim");
+            ButtonType botaoNao = new ButtonType("Não");
+            alert.getButtonTypes().setAll(botaoSim, botaoNao);
+            Optional<ButtonType> choose = alert.showAndWait();
+            if (choose.get() == botaoSim) {
+                int novoId = Integer.parseInt(txt_Id_Funcionario.getText());
+                for (Funcionario f : listaFuncionario) {
+                    if (f.getId() == novoId) {
+                        Settings.getListaFuncionaro().remove(f);
+                        Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                        alert1.setTitle("Information");
+                        alert1.setHeaderText(null);
+                        alert1.setContentText("O Funcionario foi Eliminado");
+                        alert1.showAndWait();
+                        break;
+                    }
+                }
+            }
+            else{
+                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                alert2.setTitle("Information");
+                alert2.setHeaderText(null);
+                alert2.setContentText("Cancelado com Sucesso");
+                alert2.showAndWait();
+
+            }
+        }
+    }
     @Override
         public void initialize (URL url, ResourceBundle resourceBundle){
             TipoLista();
             TamanhoLista();
+            PosicaoLista();
             TabelaInventario();
-            TabelaCliente();
+            TabelaCliente();;
+            TabelaFuncionar();
         }
-
-
 
 }

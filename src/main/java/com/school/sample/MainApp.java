@@ -21,6 +21,7 @@ public class MainApp extends Application {
         Settings.setPrimaryStage(primaryStage);
         Settings.ListaProduto();
         Settings.ListaCiente();
+        Settings.ListaFuncionario();
         primaryStage.show();
     }
 }
