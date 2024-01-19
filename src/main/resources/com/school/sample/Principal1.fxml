@@ -351,7 +351,7 @@
             </AnchorPane>
             <AnchorPane fx:id="Tela_AcercaDe" prefHeight="600.0" prefWidth="878.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane layoutX="14.0" layoutY="6.0" prefHeight="585.0" prefWidth="855.0" style="-fx-background-color: #fff; -fx-background-radius: 5px;">
+                  <AnchorPane layoutX="14.0" layoutY="6.0" prefHeight="585.0" prefWidth="855.0" style="-fx-background-color: #fff; -fx-background-radius: 5px;" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="6.0">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -371,12 +371,12 @@
                               <Font size="33.0" />
                            </font>
                         </Label>
-                        <Label layoutX="37.0" layoutY="297.0" prefHeight="48.0" prefWidth="362.0" text="Da Escola Ferreira Dias">
+                        <Label layoutX="37.0" layoutY="283.0" prefHeight="48.0" prefWidth="362.0" text="Da Escola Ferreira Dias">
                            <font>
                               <Font size="33.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="227.0" fitWidth="291.0" layoutX="463.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="227.0" fitWidth="291.0" layoutX="463.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@Imagem/AEAA - LOGOTIPO.V1 - TAMANHO L.jpg" />
                            </image>
@@ -384,6 +384,11 @@
                         <Hyperlink fx:id="HyperLink" layoutX="190.0" layoutY="417.0" onAction="#Hyperlink_On_Action" prefHeight="44.0" prefWidth="453.0" text="https://github.com/NYXx0p/Hamburgaria">
                            <font>
                               <Font size="23.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="HyperLink_Escola" layoutX="385.0" layoutY="282.0" onAction="#HyperLink_Escola_On_Action" prefHeight="50.0" prefWidth="463.0" text="https://sites.google.com/aeaquaalba.pt/ae-aqua-alba-agualva-sintra/">
+                           <font>
+                              <Font size="14.0" />
                            </font>
                         </Hyperlink>
                      </children>

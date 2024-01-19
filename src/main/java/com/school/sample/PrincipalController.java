@@ -21,6 +21,8 @@ import static com.school.sample.Settings.*;
 
 public class PrincipalController implements Initializable {
     @FXML
+    private Hyperlink HyperLink_Escola;
+    @FXML
     private Hyperlink HyperLink;
     @FXML
     private AnchorPane Tela_AcercaDe;
@@ -305,9 +307,15 @@ public class PrincipalController implements Initializable {
     }
     
     @FXML
-    private void Hyperlink_On_Action(ActionEvent actionEvent) throws IOException, URISyntaxException {
+    private void Hyperlink_On_Action(ActionEvent actionEvent) throws IOException {
         String url = "https://github.com/NYXx0p/Hamburgaria";
         java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+    }
+    @FXML
+    public void HyperLink_Escola_On_Action(ActionEvent actionEvent) throws IOException {
+        String url = "https://sites.google.com/aeaquaalba.pt/ae-aqua-alba-agualva-sintra/";
+        java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+
     }
 
     public void TipoLista() {
@@ -867,5 +875,6 @@ public class PrincipalController implements Initializable {
             TabelaCliente();;
             TabelaFuncionar();
         }
+
 
 }
