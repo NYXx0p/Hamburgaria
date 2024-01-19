@@ -9,7 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -18,6 +20,10 @@ import java.util.ResourceBundle;
 import static com.school.sample.Settings.*;
 
 public class PrincipalController implements Initializable {
+    @FXML
+    private Hyperlink HyperLink;
+    @FXML
+    private AnchorPane Tela_AcercaDe;
     @FXML
     private AnchorPane Tela_Funcionario;
     @FXML
@@ -31,7 +37,7 @@ public class PrincipalController implements Initializable {
     @FXML
     private TableView <Funcionario> TableView_Funcionar;
     @FXML
-    private ComboBox<String> Combo_Posicao_Funcionario;
+    private ComboBox<String> Posicao_Funcionario;
     @FXML
     private AnchorPane Tela_Cliente;
 
@@ -277,17 +283,33 @@ public class PrincipalController implements Initializable {
         Tela_Cliente.setVisible(true);
         Tela_Inventario.setVisible(false);
         Tela_Funcionario.setVisible(false);
+        Tela_AcercaDe.setVisible(false);
     }
     public void btnInvertario_On_Action() {
         Tela_Cliente.setVisible(false);
         Tela_Inventario.setVisible(true);
         Tela_Funcionario.setVisible(false);
+        Tela_AcercaDe.setVisible(false);
     }
     public void Funcionario_On_Action() {
         Tela_Cliente.setVisible(false);
         Tela_Inventario.setVisible(false);
         Tela_Funcionario.setVisible(true);
+        Tela_AcercaDe.setVisible(false);
     }
+    public void AcercaDe_On_Action(){
+        Tela_Cliente.setVisible(false);
+        Tela_Inventario.setVisible(false);
+        Tela_Funcionario.setVisible(false);
+        Tela_AcercaDe.setVisible(true);
+    }
+    
+    @FXML
+    private void Hyperlink_On_Action(ActionEvent actionEvent) throws IOException, URISyntaxException {
+        String url = "https://github.com/NYXx0p/Hamburgaria";
+        java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+    }
+
     public void TipoLista() {
         ArrayList<String> ListaTipo = new ArrayList<>();
         ListaTipo.add("Hambúrguer");
@@ -321,7 +343,7 @@ public class PrincipalController implements Initializable {
         ListaPosicao.add("Grelhador");
         ListaPosicao.add("Limpeza");
         ObservableList<String> listaPosicao = FXCollections.observableArrayList(ListaPosicao);
-        Combo_Posicao_Funcionario.setItems(listaPosicao);
+        Posicao_Funcionario.setItems(listaPosicao);
     }
     public void TabelaFuncionar(){
         TableView_Funcionar.setItems(Settings.getListaFuncionaro());
@@ -368,7 +390,7 @@ public class PrincipalController implements Initializable {
         txt_Id_Funcionario.setText(String.valueOf(funcionarioData.getId()));
         txt_Nome_Funcionario.setText(funcionarioData.getNome());
         txt_Endereco_Funcionario.setText(funcionarioData.getEndereco());
-        Combo_Posicao_Funcionario.setValue(funcionarioData.getPosicao());
+        Posicao_Funcionario.setValue(funcionarioData.getPosicao());
     }
 
     //Esse é o metodo que criei e o nome eu adicionei no action do butão
@@ -490,7 +512,7 @@ public class PrincipalController implements Initializable {
         if (txt_Id_Funcionario.getText().isEmpty()
             || txt_Nome_Funcionario.getText().isEmpty()
             || txt_Endereco_Funcionario.getText().isEmpty()
-            || Combo_Posicao_Funcionario.getSelectionModel().getSelectedItem() == null){
+            || Posicao_Funcionario.getSelectionModel().getSelectedItem() == null){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
@@ -510,7 +532,7 @@ public class PrincipalController implements Initializable {
             //Se não tiver ele pega o que está escrito e selecionado de cada caixa e mete num variavel
             String novoNome = txt_Nome_Funcionario.getText();
             String novoEndereco = txt_Endereco_Funcionario.getText();
-            String novoPosicao = String.valueOf(Combo_Posicao_Funcionario.getSelectionModel().getSelectedItem());
+            String novoPosicao = String.valueOf(Posicao_Funcionario.getSelectionModel().getSelectedItem());
             // Pergunta se quer mesmo adicionar numa alert
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Adicionar");
@@ -658,25 +680,25 @@ public class PrincipalController implements Initializable {
         if (txt_Id_Funcionario.getText().isEmpty()
                 || txt_Nome_Funcionario.getText().isEmpty()
                 || txt_Endereco_Funcionario.getText().isEmpty()
-                || Combo_Posicao_Funcionario.getSelectionModel().getSelectedItem() == null){
+                || Posicao_Funcionario.getSelectionModel().getSelectedItem() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("Por favor, preencha todos os campos");
             alert.showAndWait();
         } else {
-            Funcionario FuncionarioEdit = null;
+            Funcionario funcionarioEdit = null;
             int novoId = Integer.parseInt(txt_Id_Funcionario.getText());
             for (Funcionario f : Settings.getListaFuncionaro()) {
                 if (f.getId() == novoId) {
-                    FuncionarioEdit = f;
+                    funcionarioEdit = f;
                     break;
                 }
             }
-            if (FuncionarioEdit != null) {
-                FuncionarioEdit.setNome(txt_Nome_Funcionario.getText());
-                FuncionarioEdit.setEndereco(txt_Endereco_Funcionario.getText());
-                FuncionarioEdit.setPosicao(Combo_Posicao_Funcionario.getSelectionModel().getSelectedItem());
+            if (funcionarioEdit != null) {
+                funcionarioEdit.setNome(txt_Nome_Funcionario.getText());
+                funcionarioEdit.setEndereco(txt_Endereco_Funcionario.getText());
+                funcionarioEdit.setPosicao(String.valueOf(Posicao_Funcionario.getSelectionModel().getSelectedItem()));
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Editar");
                 alert.setHeaderText("Deseja mesmo Editar?");
@@ -688,7 +710,7 @@ public class PrincipalController implements Initializable {
                 alert1.setHeaderText(null);
                 Optional<ButtonType> choose = alert.showAndWait();
                 if (choose.get() == botaoSim) {
-                    setFuncionarioEdit(FuncionarioEdit);
+                    setfuncionarioEdit(funcionarioEdit);
                     TableView_Funcionar.refresh();
                     alert1.setContentText("Edição bem-sucedida");
                     alert1.showAndWait();
@@ -798,7 +820,7 @@ public class PrincipalController implements Initializable {
         if (txt_Id_Funcionario.getText().isEmpty()
                 || txt_Nome_Funcionario.getText().isEmpty()
                 || txt_Endereco_Funcionario.getText().isEmpty()
-                || Combo_Posicao_Funcionario.getSelectionModel().getSelectedItem() == null) {
+                || Posicao_Funcionario.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -807,7 +829,7 @@ public class PrincipalController implements Initializable {
         else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Eliminar");
-            alert.setHeaderText("Deseja mesmo Eliminar?"+"\n"+"ID: " +txt_Id_Funcionario.getText() + "\n" + "Nome: " + txt_Nome_Funcionario.getText() + "\n" + "Endereço: " + txt_Endereco_Funcionario.getText() + "\n" + "Posição: " + Combo_Posicao_Funcionario.getSelectionModel().getSelectedItem());
+            alert.setHeaderText("Deseja mesmo Eliminar?"+"\n"+"ID: " +txt_Id_Funcionario.getText() + "\n" + "Nome: " + txt_Nome_Funcionario.getText() + "\n" + "Endereço: " + txt_Endereco_Funcionario.getText() + "\n" + "Posição: " + Posicao_Funcionario.getSelectionModel().getSelectedItem());
             ButtonType botaoSim = new ButtonType("Sim");
             ButtonType botaoNao = new ButtonType("Não");
             alert.getButtonTypes().setAll(botaoSim, botaoNao);

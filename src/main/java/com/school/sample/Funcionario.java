@@ -12,6 +12,6 @@ public class Funcionario extends Pessoa{
     }
 
     public void setPosicao(String Posicao) {
-        Posicao = Posicao;
+        this.Posicao = Posicao;
     }
 }

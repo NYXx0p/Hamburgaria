@@ -29,16 +29,16 @@ public class Settings {
     }
     private static produto ProdutoEdit;
     private static Cliente ClienteEdit;
-    private static Funcionario FuncionarioEdit;
+    private static Funcionario funcionarioEdit;
     public static Cliente getClienteEdit() {
         return ClienteEdit;
     }
 
-    public static void setFuncionarioEdit(Funcionario FuncionarioEdit) {
-        FuncionarioEdit = FuncionarioEdit;}
+    public static void setfuncionarioEdit(Funcionario funcionarioEdit) {
+        funcionarioEdit = funcionarioEdit;}
 
     public static Funcionario getFuncionarioEdit() {
-        return FuncionarioEdit;
+        return funcionarioEdit;
     }
 
     public static void setClienteEdit(Cliente ClienteEdit) {
