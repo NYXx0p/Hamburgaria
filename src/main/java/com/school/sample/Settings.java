@@ -35,6 +35,16 @@ public class Settings {
     private static produto ProdutoEdit;
     private static Cliente ClienteEdit;
     private static Funcionario funcionarioEdit;
+    private static Login contaEdit;
+
+    public static Login getContaEdit() {
+        return contaEdit;
+    }
+
+    public static void setContaEdit(Login contaEdit) {
+        contaEdit = contaEdit;}
+
+
     public static Cliente getClienteEdit() {
         return ClienteEdit;
     }
@@ -110,7 +120,6 @@ public class Settings {
 
     public static void ListaContas(){
         ListaContas.add(new Login("Thais Carla","gorda"));
-        ListaContas.add(new Login("Florin","1234"));
-        ListaContas.add(new Login("Carlos","trabalho"));
+        ListaContas.add(new Login("Florin","sumo"));
     }
 }

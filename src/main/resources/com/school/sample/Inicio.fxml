@@ -8,55 +8,119 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.school.sample.InicioController">
+
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.school.sample.InicioController">
    <children>
-      <AnchorPane prefHeight="405.0" prefWidth="300.0" style="-fx-background-color: #313338;">
+      <AnchorPane fx:id="Log_in" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <Label alignment="CENTER" layoutX="28.0" layoutY="290.0" prefHeight="38.0" prefWidth="242.0" text="Criar Conta" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Button fx:id="New_Conta" layoutX="39.0" layoutY="338.0" mnemonicParsing="false" onMouseEntered="#New_Conta_Entered" onMouseExited="#New_Conta_Exited" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #fff;" text="Criar nova Conta">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="81.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Imagem/thais_carla-removebg-preview.png" />
-               </image>
-            </ImageView>
-            <Label alignment="CENTER" layoutX="9.0" layoutY="23.0" prefHeight="31.0" prefWidth="280.0" text="Isca Da Thais Carla" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="31.0" />
-               </font>
-            </Label>
+            <AnchorPane prefHeight="416.0" prefWidth="300.0" style="-fx-background-color: #313338;">
+               <children>
+                  <Label alignment="CENTER" layoutX="28.0" layoutY="290.0" prefHeight="38.0" prefWidth="242.0" text="Criar Conta" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="New_Conta" layoutX="39.0" layoutY="338.0" mnemonicParsing="false" onAction="#New_Conta_On_Action" onMouseEntered="#New_Conta_Entered" onMouseExited="#New_Conta_Exited" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #fff;" text="Criar nova Conta">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="81.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imagem/thais_carla-removebg-preview.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="CENTER" layoutX="9.0" layoutY="23.0" prefHeight="31.0" prefWidth="280.0" text="Isca Da Thais Carla" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="31.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="300.0" layoutY="5.0" prefHeight="400.0" prefWidth="300.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="38.0" prefWidth="242.0" text="Iniciar Sessão">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txt_Username" layoutX="32.0" layoutY="118.0" prefHeight="30.0" prefWidth="220.0" promptText="Usename" />
+                  <PasswordField fx:id="txt_password" layoutX="32.0" layoutY="170.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" />
+                  <Button fx:id="Login" layoutX="31.0" layoutY="224.0" mnemonicParsing="false" onAction="#Login_On_Action" onMouseEntered="#Login_Entered" onMouseExited="#Login_Exited" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #313338;" text="Login" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="300.0" layoutY="5.0" prefHeight="400.0" prefWidth="300.0">
+      <AnchorPane fx:id="Criar_Conta" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
-            <Label alignment="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="38.0" prefWidth="242.0" text="Iniciar Sessão">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txt_Username" layoutX="32.0" layoutY="118.0" prefHeight="30.0" prefWidth="220.0" promptText="Usename" />
-            <PasswordField fx:id="txt_password" layoutX="32.0" layoutY="170.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" />
-            <Button fx:id="Login" layoutX="31.0" layoutY="224.0" mnemonicParsing="false" onAction="#Login_On_Action" onMouseEntered="#Login_Entered" onMouseExited="#Login_Exited" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #313338;" text="Login" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
+            <AnchorPane prefHeight="410.0" prefWidth="300.0">
+               <children>
+                  <TextField fx:id="txt_new_Username" layoutX="40.0" layoutY="153.0" prefHeight="30.0" prefWidth="220.0" promptText="Username">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </TextField>
+                  <Button fx:id="btn_Criar" layoutX="40.0" layoutY="246.0" mnemonicParsing="false" onAction="#btn_Criar_On_Action" onMouseEntered="#btn_Criar_Entered" onMouseExited="#btn_Criar_Exited" prefHeight="30.0" prefWidth="220.0" style="-fx-background-color: #313338;" text="Criar Conta" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Label layoutX="41.0" layoutY="46.0" prefHeight="70.0" prefWidth="220.0" text="Criar Conta">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="txt_new_Password" layoutX="40.0" layoutY="195.0" prefHeight="30.0" prefWidth="220.0" promptText="Password">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </PasswordField>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="300.0" prefHeight="416.0" prefWidth="300.0" style="-fx-background-color: #313338;">
+               <children>
+                  <Label alignment="CENTER" layoutX="11.0" layoutY="28.0" prefHeight="70.0" prefWidth="280.0" text="Isca da Thais Carla" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="31.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="83.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imagem/thais_carla-removebg-preview.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="CENTER" layoutX="27.0" layoutY="310.0" prefHeight="17.0" prefWidth="242.0" text="Iniciar Sesão" textFill="WHITE">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btn_login" layoutX="41.0" layoutY="356.0" mnemonicParsing="false" onAction="#btn_login_On_Action" onMouseEntered="#btn_login_Entered" onMouseExited="#btn_login_Exited" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: #fff;" text="Já tenho Conta">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>
-</AnchorPane>
+</StackPane>

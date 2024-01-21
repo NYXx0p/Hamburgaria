@@ -7,11 +7,18 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -24,8 +31,6 @@ import static com.school.sample.Settings.*;
 
 
 public class PrincipalController implements Initializable {
-    @FXML
-    private Label nome_inicio;
     @FXML
     private TextField Pesquisar_Funcionario;
     @FXML
@@ -164,7 +169,7 @@ public class PrincipalController implements Initializable {
     @FXML
     private TextField txt_Nome_Funcionario;
 
-
+//Essa parte é para a "animação dos butões"
     public void btnInventarioEntered() {
         btnInventario.setStyle("-fx-background-color: white; -fx-text-fill: #000;");
     }
@@ -268,29 +273,36 @@ public class PrincipalController implements Initializable {
     public void btnEliminar_Funcionario_Exited(){
         btnEliminar_Funcionario.setStyle("-fx-background-color: #919de6; -fx-background-radius: 5px; -fx-text-fill: #fff;");
     }
-    public void Pesquisa_Produto_Key(KeyEvent keyEvent) {
+    // Método responsável por realizar a pesquisa de produtos com o Id e o nome
+    public void Pesquisa_Produto_Key() {
         FilteredList<produto> filter = new FilteredList<>(listaProduto, e -> true);
-
+        // Adiciona um ouvinte para o campo de pesquisa de produto
         Pesquisa_Produto.textProperty().addListener((Observable, oldValue, newValue) ->{
-
+            // Define o predicado de filtragem com base no valor do campo de pesquisa
             filter.setPredicate(predicateproduto ->{
+                // Verifica se o campo de pesquisa está vazio e retorna todos os produtos se verdadeiro
                 if(newValue == null && newValue.isEmpty()){
                     return true;
                 }
+                //Converte tudo para minúsculas
                 String ProcurarP = newValue.toLowerCase();
                 if (String.valueOf(predicateproduto.getID()).contains(ProcurarP)){
                     return true;
                 }else if (predicateproduto.getNome().toLowerCase().contains(ProcurarP)) {
                     return true;
                 }
+                // Retorna falso se nada for encontrado
                 return false;
             });
         });
+        // Cria uma lista ordenada com base na lista filtrada
         SortedList<produto> sortList =  new SortedList<>(filter);
+        // Liga o comparador da lista ordenada ao comparador da tabela de inventário
         sortList.comparatorProperty().bind(TableViewInventario.comparatorProperty());
+        // Define os itens da tabela de inventário como a lista ordenada
         TableViewInventario.setItems(sortList);
     }
-    public void Pesquisa_Cliente_Key(KeyEvent keyEvent) {
+    public void Pesquisa_Cliente_Key() {
         FilteredList<Cliente> filter = new FilteredList<>(listaCliente, e -> true);
 
         Pesquisa_Cliente.textProperty().addListener((Observable, oldValue, newValue) ->{
@@ -316,7 +328,7 @@ public class PrincipalController implements Initializable {
         sortList.comparatorProperty().bind(TableViewCliente.comparatorProperty());
         TableViewCliente.setItems(sortList);
     }
-    public void Pesquisar_Funcionario_Key(KeyEvent keyEvent) {
+    public void Pesquisar_Funcionario_Key() {
         FilteredList<Funcionario> filter = new FilteredList<>(listaFuncionario, e -> true);
 
         Pesquisar_Funcionario.textProperty().addListener((Observable, oldValue, newValue) ->{
@@ -343,8 +355,9 @@ public class PrincipalController implements Initializable {
         TableView_Funcionar.setItems(sortList);
 
     }
-
+    // Método responsável por lidar com o evento de sair da aplicação
     public void sair() throws Exception {
+        // Cria um alerta de confirmação
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Sair");
         alert.setHeaderText("Deseja mesmo Sair?");
@@ -352,12 +365,28 @@ public class PrincipalController implements Initializable {
         ButtonType botaoSim = new ButtonType("Sim");
         ButtonType botaoNao = new ButtonType("Não");
         alert.getButtonTypes().setAll(botaoSim, botaoNao);
+        // Exibe o alerta e aguarda a escolha do utilizador
         Optional<ButtonType> choose = alert.showAndWait();
+        // Verifica se o utilizador escolheu "Sim"
         if (choose.get() == botaoSim) {
-            Platform.exit();
+            // Carrega a cena de início a partir do ficheiro FXML
+            Parent scene = FXMLLoader.load(getClass().getResource("Inicio.fxml"));
+            // Cria uma nova janela para a cena de início
+            Stage voltar = new Stage();
+            // Define a janela principal como proprietária da nova janela
+            voltar.initOwner(Settings.getPrimaryStage());
+            voltar.initModality(Modality.WINDOW_MODAL);
+            voltar.setScene(new Scene(scene));
+            // Obtém a janela atual e a oculta
+            Window window = btnSair.getScene().getWindow();
+            window.hide();
+            // Exibe a nova janela de início
+            voltar.show();
         }
     }
+    // Método chamado quando o botão de cliente é acionado
     public void btnCliente_On_Action() {
+        // Torna a tela de cliente visível
         Tela_Cliente.setVisible(true);
         Tela_Inventario.setVisible(false);
         Tela_Funcionario.setVisible(false);
@@ -381,10 +410,12 @@ public class PrincipalController implements Initializable {
         Tela_Funcionario.setVisible(false);
         Tela_AcercaDe.setVisible(true);
     }
-    
+    // Método associado à ação do Hyperlink (link) que redireciona para uma página web
     @FXML
     private void Hyperlink_On_Action(ActionEvent actionEvent) throws IOException {
+        // URL para a página do GitHub do projeto
         String url = "https://github.com/NYXx0p/Hamburgaria";
+        // Abre a URL no navegador padrão do sistema usando as classes Desktop e URI do Java
         java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
     }
     @FXML

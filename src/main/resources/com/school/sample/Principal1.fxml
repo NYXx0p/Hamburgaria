@@ -26,7 +26,7 @@
                        <Font name="System Bold" size="24.0" />
                    </font>
                </Label>
-               <Button fx:id="btnAcercaDe" layoutX="10.0" layoutY="440.0" mnemonicParsing="false" onAction="#AcercaDe_On_Action" onMouseEntered="#btnAcercaDeEntered" onMouseExited="#btnAcercaDeExited" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 4px;" text="AcercaDe" textFill="WHITE" AnchorPane.leftAnchor="10.0">
+               <Button fx:id="btnAcercaDe" layoutX="10.0" layoutY="429.0" mnemonicParsing="false" onAction="#AcercaDe_On_Action" onMouseEntered="#btnAcercaDeEntered" onMouseExited="#btnAcercaDeExited" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 4px;" text="AcercaDe" textFill="WHITE" AnchorPane.leftAnchor="10.0">
                    <cursor>
                        <Cursor fx:constant="HAND" />
                    </cursor>
@@ -34,7 +34,7 @@
                   <Font size="14.0" />
                </font>
                </Button>
-               <Button fx:id="btnCliente" layoutX="10.0" layoutY="346.0" mnemonicParsing="false" onAction="#btnCliente_On_Action" onMouseEntered="#btnClienteEntered" onMouseExited="#btnClienteExited" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 4px;" text="Cliente" textFill="WHITE">
+               <Button fx:id="btnCliente" layoutX="10.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnCliente_On_Action" onMouseEntered="#btnClienteEntered" onMouseExited="#btnClienteExited" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 4px;" text="Cliente" textFill="WHITE">
                    <cursor>
                        <Cursor fx:constant="HAND" />
                    </cursor>
@@ -42,7 +42,7 @@
                   <Font size="14.0" />
                </font>
                </Button>
-               <Button fx:id="btnFuncionario" layoutX="10.0" layoutY="393.0" mnemonicParsing="false" onAction="#Funcionario_On_Action" onMouseEntered="#btnFuncionarioEntered" onMouseExited="#btnFuncionarioExited" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: transparent; -fx-border-color: fff; -fx-border-radius: 4px;" text="Funcionário" textFill="WHITE" AnchorPane.leftAnchor="10.0">
+               <Button fx:id="btnFuncionario" layoutX="10.0" layoutY="369.0" mnemonicParsing="false" onAction="#Funcionario_On_Action" onMouseEntered="#btnFuncionarioEntered" onMouseExited="#btnFuncionarioExited" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: transparent; -fx-border-color: fff; -fx-border-radius: 4px;" text="Funcionário" textFill="WHITE" AnchorPane.leftAnchor="10.0">
                    <cursor>
                        <Cursor fx:constant="HAND" />
                    </cursor>
@@ -64,7 +64,7 @@
                   <Font name="System Bold" size="31.0" />
                </font>
             </Label>
-            <Button fx:id="btnInventario" layoutX="10.0" layoutY="299.0" mnemonicParsing="false" onAction="#btnInvertario_On_Action" onMouseEntered="#btnInventarioEntered" onMouseExited="#btnInventarioExited" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 4px;" text="Inventário" textFill="WHITE" AnchorPane.leftAnchor="10.0">
+            <Button fx:id="btnInventario" layoutX="10.0" layoutY="255.0" mnemonicParsing="false" onAction="#btnInvertario_On_Action" onMouseEntered="#btnInventarioEntered" onMouseExited="#btnInventarioExited" prefHeight="40.0" prefWidth="210.0" style="-fx-background-color: transparent; -fx-border-color: #fff; -fx-border-radius: 4px;" text="Inventário" textFill="WHITE" AnchorPane.leftAnchor="10.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -77,11 +77,6 @@
                   <Image url="@Imagem/thais_carla-removebg-preview.png" />
                </image>
             </ImageView>
-            <Label layoutX="12.0" layoutY="226.0" prefHeight="43.0" prefWidth="205.0" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
            </AnchorPane>
        </AnchorPane>
    </left>
