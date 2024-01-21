@@ -24,6 +24,11 @@ public class Settings {
     }
     protected static ObservableList<Funcionario> listaFuncionario = FXCollections.observableArrayList();
 
+    public static ObservableList<Login> getListaContas() {
+        return ListaContas;
+    }
+    protected static ObservableList<Login> ListaContas = FXCollections.observableArrayList();
+
     public static ObservableList<Cliente> getListaCliente() {
         return listaCliente;
     }
@@ -101,5 +106,11 @@ public class Settings {
         listaFuncionario.add(new Funcionario(30,"João Sousa","Rua das Acácias","Montador de Hambúrguer"));
         listaFuncionario.add(new Funcionario(20,"Tiago Silva","Travessa do Bosque","Grelhador"));
         listaFuncionario.add(new Funcionario(10,"Otacilio Alves","Rua dos Gays","Limpeza"));
+    }
+
+    public static void ListaContas(){
+        ListaContas.add(new Login("Thais Carla","gorda"));
+        ListaContas.add(new Login("Florin","1234"));
+        ListaContas.add(new Login("Carlos","trabalho"));
     }
 }

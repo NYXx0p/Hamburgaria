@@ -17,11 +17,12 @@ public class MainApp extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setTitle(null);
         primaryStage.setScene(scene);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.initStyle(StageStyle.UTILITY);
         Settings.setPrimaryStage(primaryStage);
         Settings.ListaProduto();
         Settings.ListaCiente();
         Settings.ListaFuncionario();
+        Settings.ListaContas();
         primaryStage.show();
     }
 }
