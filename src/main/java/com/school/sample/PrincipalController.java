@@ -424,14 +424,17 @@ public class PrincipalController implements Initializable {
         java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
 
     }
-
+    // Método para configurar o tipo de lista (por exemplo, para um ComboBox)
     public void TipoLista() {
+        // Cria um ArrayList para armazenar os diferentes tipos
         ArrayList<String> ListaTipo = new ArrayList<>();
         ListaTipo.add("Hambúrguer");
         ListaTipo.add("Bebida");
         ListaTipo.add("Acompanhamento");
         ListaTipo.add("Sobremesa");
+        // Converte a lista em uma ObservableList para ser usada em componentes gráficos do JavaFX
         ObservableList<String> listaTipo = FXCollections.observableArrayList(ListaTipo);
+        // Configura os itens do componente gráfico na ComboBox comi uma lista
         Tipo.setItems(listaTipo);
     }
 
@@ -460,32 +463,37 @@ public class PrincipalController implements Initializable {
         ObservableList<String> listaPosicao = FXCollections.observableArrayList(ListaPosicao);
         Posicao_Funcionario.setItems(listaPosicao);
     }
+    // Método para configurar a tabela de funcionários
     public void TabelaFuncionar(){
+        // Define os itens da TableView com a lista de funcionários armazenada nas configurações
         TableView_Funcionar.setItems(Settings.getListaFuncionaro());
-        TableCell_Id_Funcionario.setCellValueFactory(new PropertyValueFactory<Funcionario, Integer>("Id"));
-        TableCell_Nome_Funcionario.setCellValueFactory(new PropertyValueFactory<Funcionario, String>("nome"));
-        TableCell_Endereco_Funcionario.setCellValueFactory(new PropertyValueFactory<Funcionario, String>("Endereco"));
-        TableCell_Posicao_Funcionario.setCellValueFactory(new PropertyValueFactory<Funcionario, String>("Posicao"));
+        // Configura as colunas da TableView para exibir as propriedades dos funcionários
+        TableCell_Id_Funcionario.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        TableCell_Nome_Funcionario.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        TableCell_Endereco_Funcionario.setCellValueFactory(new PropertyValueFactory<>("Endereco"));
+        TableCell_Posicao_Funcionario.setCellValueFactory(new PropertyValueFactory<>("Posicao"));
     }
     public void TabelaInventario() {
         TableViewInventario.setItems(Settings.getListaProduto());
-        TableCell_ID.setCellValueFactory(new PropertyValueFactory<produto, Integer>("ID"));
-        TableCell_Nome.setCellValueFactory(new PropertyValueFactory<produto, String>("Nome"));
-        TableCell_Tipo.setCellValueFactory(new PropertyValueFactory<produto, String>("Tipo"));
-        TableCell_Tamanho.setCellValueFactory(new PropertyValueFactory<produto, String>("Tamanho"));
-        TableCell_Qtd.setCellValueFactory(new PropertyValueFactory<produto, Integer>("qtd"));
-        TableCell_Preco.setCellValueFactory(new PropertyValueFactory<produto, Double>("preco"));
+        TableCell_ID.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        TableCell_Nome.setCellValueFactory(new PropertyValueFactory<>("Nome"));
+        TableCell_Tipo.setCellValueFactory(new PropertyValueFactory<>("Tipo"));
+        TableCell_Tamanho.setCellValueFactory(new PropertyValueFactory<>("Tamanho"));
+        TableCell_Qtd.setCellValueFactory(new PropertyValueFactory<>("qtd"));
+        TableCell_Preco.setCellValueFactory(new PropertyValueFactory<>("preco"));
     }
     public void TabelaCliente(){
         TableViewCliente.setItems(Settings.getListaCliente());
-        Table_Cell_ID_Cliente.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("Id"));
-        Table_Cell_Nome_Cliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("Nome"));
-        Table_Cell_Endereco_Cliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("Endereco"));
-        Table_Cell_N_Cliente.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("N_Telefone"));
+        Table_Cell_ID_Cliente.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        Table_Cell_Nome_Cliente.setCellValueFactory(new PropertyValueFactory<>("Nome"));
+        Table_Cell_Endereco_Cliente.setCellValueFactory(new PropertyValueFactory<>("Endereco"));
+        Table_Cell_N_Cliente.setCellValueFactory(new PropertyValueFactory<>("N_Telefone"));
     }
-
+    // Método para visualizar informações detalhadas de um produto no inventário
     public void InventarioVerInfo() {
+        // Obtém o produto selecionado na TableView de inventário
         produto prodData = (produto) TableViewInventario.getSelectionModel().getSelectedItem();
+        // Define os textos dos elementos visuais com base nas informações do produto
         id_Inventario_view.setText(String.valueOf(prodData.getID()));
         nome_inventario_view.setText(prodData.getNome());
         qtd_inventario_view.setText(String.valueOf(prodData.getQtd()));
@@ -676,52 +684,66 @@ public class PrincipalController implements Initializable {
             }
         }
     }
-
-
     }
+    // Método para lidar com a ação de editar um produto no inventário
     public void EditarAction() {
+        // Verifica se algum dos campos necessários está vazio
         if (id_Inventario_view.getText().isEmpty()
                 || nome_inventario_view.getText().isEmpty()
                 || Tipo.getSelectionModel().getSelectedItem() == null
                 || Tamanho.getSelectionModel().getSelectedItem() == null
                 || qtd_inventario_view.getText().isEmpty()
                 || preco_inventario_view.getText().isEmpty()) {
+            // Mostra uma mensagem de erro se algum campo estiver vazio
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("Por favor, preencha todos os campos");
             alert.showAndWait();
         } else {
+            // Inicializa uma variável para o produto a ser editado
             produto ProdutoEdit = null;
+            // Obtém o novo ID a partir do campo de texto
             int novoId = Integer.parseInt(id_Inventario_view.getText());
+            // Procura o produto na lista com base no novo ID
             for (produto p : Settings.getListaProduto()) {
                 if (p.getID() == novoId) {
                     ProdutoEdit = p;
                     break;
                 }
             }
+            // Verifica se o produto foi encontrado
             if (ProdutoEdit != null) {
+                // Atualiza as informações do produto com os novos valores
                 ProdutoEdit.setNome(nome_inventario_view.getText());
                 ProdutoEdit.setTipo(Tipo.getSelectionModel().getSelectedItem());
                 ProdutoEdit.setTamanho(Tamanho.getSelectionModel().getSelectedItem());
                 ProdutoEdit.setQtd(Integer.parseInt(qtd_inventario_view.getText()));
                 ProdutoEdit.setPreco(Double.parseDouble(preco_inventario_view.getText()));
+                // Pergunta ao utilizador se deseja realmente editar
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Editar");
                 alert.setHeaderText("Deseja mesmo Editar?");
                 ButtonType botaoSim = new ButtonType("Sim");
                 ButtonType botaoNao = new ButtonType("Não");
                 alert.getButtonTypes().setAll(botaoSim, botaoNao);
+                // Cria um segundo alerta para mostrar informações após a edição
                 Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                 alert1.setTitle("Information");
                 alert1.setHeaderText(null);
+                // Obtém a escolha do utilizador
                 Optional<ButtonType> choose = alert.showAndWait();
+                // Se o utilizador escolher "Sim"
                 if (choose.get() == botaoSim) {
+                    // Atualiza o produto editado nas configurações
                     setProdutoEdit(ProdutoEdit);
+                    // Atualiza a TableView para refletir as mudanças
                     TableViewInventario.refresh();
+                    // Mostra uma mensagem de sucesso
                     alert1.setContentText("Edição bem-sucedida");
                     alert1.showAndWait();
                 } else {
+                    // Se o utilizador escolher "Não", mostra uma mensagem de cancelamento
                     Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
                     alert2.setTitle("Information");
                     alert2.setHeaderText(null);
@@ -730,6 +752,7 @@ public class PrincipalController implements Initializable {
                 }
             }
             else{
+                // Se o produto não for encontrado, mostra uma mensagem de erro
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
@@ -845,13 +868,16 @@ public class PrincipalController implements Initializable {
                 alert.showAndWait();}
         }
     }
+    // Método para lidar com a ação de eliminar um produto do inventário
     public void EliminarAction(){
+        // Verifica se algum dos campos necessários está vazio
         if (id_Inventario_view.getText().isEmpty()
                 || nome_inventario_view.getText().isEmpty()
                 || Tipo.getSelectionModel().getSelectedItem() == null
                 || Tamanho.getSelectionModel().getSelectedItem() == null
                 || qtd_inventario_view.getText().isEmpty()
                 || preco_inventario_view.getText().isEmpty()) {
+            // Mostra uma mensagem de erro se algum campo estiver vazio
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -864,22 +890,30 @@ public class PrincipalController implements Initializable {
             ButtonType botaoSim = new ButtonType("Sim");
             ButtonType botaoNao = new ButtonType("Não");
             alert.getButtonTypes().setAll(botaoSim, botaoNao);
+            // Mostra o alerta e aguarda a escolha do utilizador
             Optional<ButtonType> choose = alert.showAndWait();
+            // Se o utilizador escolher "Sim"
             if (choose.get() == botaoSim) {
+                // Obtém o novo ID a partir do campo de texto
                 int novoId = Integer.parseInt(id_Inventario_view.getText());
+                // Procura o produto na lista com base no novo ID
                 for (produto p : listaProduto) {
                     if (p.getID() == novoId) {
+                        // Remove o produto da lista de produtos nas configurações
                         Settings.getListaProduto().remove(p);
+                        // Mostra uma mensagem de informação indicando que o produto foi eliminado
                         Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                         alert1.setTitle("Information");
                         alert1.setHeaderText(null);
                         alert1.setContentText("O seu produto foi Eliminado");
                         alert1.showAndWait();
+                        // Sai do loop pois o produto foi encontrado e eliminado
                         break;
                     }
                 }
             }
             else{
+                // Se o utilizador escolher "Não", mostra uma mensagem de cancelamento
                 Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
                 alert2.setTitle("Information");
                 alert2.setHeaderText(null);
@@ -979,10 +1013,7 @@ public class PrincipalController implements Initializable {
             TamanhoLista();
             PosicaoLista();
             TabelaInventario();
-            TabelaCliente();;
+            TabelaCliente();
             TabelaFuncionar();
         }
-
-
-
 }

@@ -8,7 +8,7 @@ public class produto {
     private String Tamanho;
     private int qtd;
     private double preco;
-
+    //Um construtor para o produto
     public produto(int ID, String Nome, String Tipo, String Tamanho, int qtd, double preco) {
         this.ID = ID;
         this.Nome = Nome;
