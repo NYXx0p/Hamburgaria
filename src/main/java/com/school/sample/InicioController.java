@@ -187,6 +187,7 @@ public class InicioController {
             }
         }
     }
+
     //Ideia robada do branquelo
     public void sair(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
