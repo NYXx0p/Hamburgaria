@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
 <StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.school.sample.InicioController">
    <children>
       <AnchorPane fx:id="Log_in" prefHeight="400.0" prefWidth="600.0">
@@ -43,7 +42,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="300.0" layoutY="5.0" prefHeight="400.0" prefWidth="300.0">
+            <AnchorPane layoutX="300.0" layoutY="-1.0" prefHeight="416.0" prefWidth="300.0">
                <children>
                   <Label alignment="CENTER" layoutX="21.0" layoutY="62.0" prefHeight="38.0" prefWidth="242.0" text="Iniciar Sessão">
                      <font>
@@ -59,6 +58,18 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                  </Button>
+                  <Button fx:id="btn_sair" layoutX="250.0" layoutY="375.0" mnemonicParsing="false" onAction="#sair" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #313338;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Imagem/sairImagem-removebg-preview.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
             </AnchorPane>

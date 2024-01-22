@@ -286,7 +286,7 @@ public class PrincipalController implements Initializable {
                 }
                 //Converte tudo para minúsculas
                 String ProcurarP = newValue.toLowerCase();
-                if (String.valueOf(predicateproduto.getID()).contains(ProcurarP)){
+                if (String.valueOf(predicateproduto.getID()).equals(ProcurarP)){
                     return true;
                 }else if (predicateproduto.getNome().toLowerCase().contains(ProcurarP)) {
                     return true;
@@ -312,13 +312,13 @@ public class PrincipalController implements Initializable {
                     return true;
                 }
                 String ProcurarC = newValue.toLowerCase();
-                if (String.valueOf(predicatecliente.getId()).contains(ProcurarC)){
+                if (String.valueOf(predicatecliente.getId()).equals(ProcurarC)){
                     return true;
                 }else if (predicatecliente.getNome().toLowerCase().contains(ProcurarC)) {
                     return true;
                 }else if(predicatecliente.getEndereco().toLowerCase().contains(ProcurarC)){
                     return true;
-                }else if(String.valueOf(predicatecliente.getN_Telefone()).contains(ProcurarC)) {
+                }else if(String.valueOf(predicatecliente.getN_Telefone()).startsWith(ProcurarC)) {
                     return true;
                 }
                 return false;
@@ -338,7 +338,7 @@ public class PrincipalController implements Initializable {
                     return true;
                 }
                 String ProcurarF = newValue.toLowerCase();
-                if (String.valueOf(predicatefuncionario.getId()).contains(ProcurarF)){
+                if (String.valueOf(predicatefuncionario.getId()).equals(ProcurarF)){
                     return true;
                 }else if (predicatefuncionario.getNome().toLowerCase().contains(ProcurarF)) {
                     return true;
@@ -359,8 +359,8 @@ public class PrincipalController implements Initializable {
     public void sair() throws Exception {
         // Cria um alerta de confirmação
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Sair");
-        alert.setHeaderText("Deseja mesmo Sair?");
+        alert.setTitle("Log out");
+        alert.setHeaderText("Deseja mesmo dar Log out?");
         // Adiciona botões personalizados em português
         ButtonType botaoSim = new ButtonType("Sim");
         ButtonType botaoNao = new ButtonType("Não");
@@ -375,6 +375,7 @@ public class PrincipalController implements Initializable {
             Stage voltar = new Stage();
             // Define a janela principal como proprietária da nova janela
             voltar.initOwner(Settings.getPrimaryStage());
+            voltar.setResizable(false);
             voltar.initModality(Modality.WINDOW_MODAL);
             voltar.setScene(new Scene(scene));
             // Obtém a janela atual e a oculta
@@ -901,6 +902,12 @@ public class PrincipalController implements Initializable {
                     if (p.getID() == novoId) {
                         // Remove o produto da lista de produtos nas configurações
                         Settings.getListaProduto().remove(p);
+                        id_Inventario_view.setText("");
+                        nome_inventario_view.setText("");
+                        Tipo.setValue(null);
+                        Tamanho.setValue(null);
+                        qtd_inventario_view.setText("");
+                        preco_inventario_view.setText("");
                         // Mostra uma mensagem de informação indicando que o produto foi eliminado
                         Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                         alert1.setTitle("Information");
@@ -946,6 +953,10 @@ public class PrincipalController implements Initializable {
                 for (Cliente c : listaCliente) {
                     if (c.getId() == novoId) {
                         Settings.getListaCliente().remove(c);
+                        txt_Id_Cliente.setText("");
+                        txt_nome_Cliente.setText("");
+                        txt_Edereco_Cliente.setText("");
+                        txt_N_Cliente.setText("");
                         Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                         alert1.setTitle("Information");
                         alert1.setHeaderText(null);
@@ -988,6 +999,10 @@ public class PrincipalController implements Initializable {
                 for (Funcionario f : listaFuncionario) {
                     if (f.getId() == novoId) {
                         Settings.getListaFuncionaro().remove(f);
+                        txt_Id_Funcionario.setText("");
+                        txt_Nome_Funcionario.setText("");
+                        Posicao_Funcionario.setValue(null);
+                        txt_N_Cliente.setText("");
                         Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                         alert1.setTitle("Information");
                         alert1.setHeaderText(null);

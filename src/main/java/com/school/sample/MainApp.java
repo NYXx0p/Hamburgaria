@@ -16,7 +16,8 @@ public class MainApp extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setTitle(null);
         primaryStage.setScene(scene);
-        primaryStage.initStyle(StageStyle.UTILITY);
+        primaryStage.setResizable(false);
+        primaryStage.initStyle(StageStyle.DECORATED);
         Settings.setPrimaryStage(primaryStage);
         Settings.ListaProduto();
         Settings.ListaCiente();

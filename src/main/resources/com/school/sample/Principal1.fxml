@@ -363,41 +363,36 @@
                               <Font name="System Bold" size="37.0" />
                            </font>
                         </Label>
-                        <Label layoutX="37.0" layoutY="98.0" prefHeight="64.0" prefWidth="379.0" text="Feito pelo Florin Chascear" AnchorPane.leftAnchor="37.0">
+                        <Label layoutX="37.0" layoutY="172.0" prefHeight="64.0" prefWidth="379.0" text="Feito pelo Florin Chascear" AnchorPane.leftAnchor="37.0">
                            <font>
                               <Font size="33.0" />
                            </font>
                         </Label>
-                        <Label layoutX="37.0" layoutY="202.0" prefHeight="48.0" prefWidth="379.0" text="Da turma 2ºGi1" AnchorPane.leftAnchor="37.0">
+                        <Label layoutX="37.0" layoutY="254.0" prefHeight="48.0" prefWidth="379.0" text="Da turma 2ºGi1" AnchorPane.leftAnchor="37.0">
                            <font>
                               <Font size="33.0" />
                            </font>
                         </Label>
-                        <Label layoutX="37.0" layoutY="283.0" prefHeight="48.0" prefWidth="362.0" text="Da Escola Ferreira Dias" AnchorPane.leftAnchor="37.0">
+                        <Label layoutX="37.0" layoutY="335.0" prefHeight="48.0" prefWidth="362.0" text="Da Escola Ferreira Dias" AnchorPane.leftAnchor="37.0">
                            <font>
                               <Font size="33.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="227.0" fitWidth="291.0" layoutX="463.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="101.0">
+                        <ImageView fitHeight="227.0" fitWidth="291.0" layoutX="463.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="101.0">
                            <image>
                               <Image url="@Imagem/AEAA - LOGOTIPO.V1 - TAMANHO L.jpg" />
                            </image>
                         </ImageView>
-                        <Hyperlink fx:id="HyperLink" layoutX="37.0" layoutY="332.0" onAction="#Hyperlink_On_Action" prefHeight="44.0" prefWidth="453.0" text="https://github.com/NYXx0p/Hamburgaria" AnchorPane.leftAnchor="37.0">
+                        <Hyperlink fx:id="HyperLink" layoutX="37.0" layoutY="384.0" onAction="#Hyperlink_On_Action" prefHeight="44.0" prefWidth="453.0" text="https://github.com/NYXx0p/Hamburgaria" AnchorPane.leftAnchor="37.0">
                            <font>
                               <Font size="23.0" />
                            </font>
                         </Hyperlink>
-                        <Hyperlink fx:id="HyperLink_Escola" layoutX="385.0" layoutY="282.0" onAction="#HyperLink_Escola_On_Action" prefHeight="50.0" prefWidth="463.0" text="https://sites.google.com/aeaquaalba.pt/ae-aqua-alba-agualva-sintra/" AnchorPane.rightAnchor="7.0">
+                        <Hyperlink fx:id="HyperLink_Escola" layoutX="385.0" layoutY="342.0" onAction="#HyperLink_Escola_On_Action" prefHeight="50.0" prefWidth="463.0" text="https://sites.google.com/aeaquaalba.pt/ae-aqua-alba-agualva-sintra/" AnchorPane.rightAnchor="7.0">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Hyperlink>
-                        <ImageView fitHeight="255.0" fitWidth="257.0" layoutX="529.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="93.87213134765625">
-                           <image>
-                              <Image url="@Imagem/thais_carla-removebg-preview.png" />
-                           </image>
-                        </ImageView>
                      </children>
                   </AnchorPane>
                </children>

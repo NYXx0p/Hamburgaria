@@ -22,6 +22,8 @@ import static com.school.sample.Settings.*;
 
 public class InicioController {
     @FXML
+    private Button btn_sair;
+    @FXML
     private Button btn_login;
     @FXML
     private Button btn_Criar;
@@ -185,5 +187,21 @@ public class InicioController {
             }
         }
     }
-
+    //Ideia robada do branquelo
+    public void sair(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Log out");
+        alert.setHeaderText("Deseja mesmo dar Log out?");
+        // Adiciona botões personalizados em português
+        ButtonType botaoSim = new ButtonType("Sim");
+        ButtonType botaoNao = new ButtonType("Não");
+        alert.getButtonTypes().setAll(botaoSim, botaoNao);
+        // Exibe o alerta e aguarda a escolha do utilizador
+        Optional<ButtonType> choose = alert.showAndWait();
+        // Verifica se o utilizador escolheu "Sim"
+        if (choose.get() == botaoSim) {
+            Stage stage = (Stage) btn_sair.getScene().getWindow(); //Obtendo a janela atual
+            stage.close(); //Fechando o Stage
+        }
+    }
 }
